@@ -60,6 +60,11 @@
             '';
           };
 
+          # Extra environment variables
+          environment.variables = {
+            PLAN9 = "${pkgs.plan9port}";
+          };
+
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
@@ -85,11 +90,6 @@
 
               sudo darwin-rebuild switch --flake /Users/stephen/Documents/Projects/nix-darwin/
             '';
-          };
-
-          home.file."bin/foo" = {
-            executable = true;
-            text = "${pkgs.plan9port}";
           };
         };
     in
