@@ -36,8 +36,8 @@
           # Necessary for using flakes on this system.
           nix.settings.experimental-features = "nix-command flakes";
 
-          # Enable alternative shell support in nix-darwin.
-          # programs.fish.enable = true;
+          # Set hostname
+          networking.hostName = "blueberry";
 
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -56,7 +56,7 @@
           programs.zsh = {
             enable = true;
             promptInit = ''
-              export PROMPT="blueberry> "
+              export PROMPT="%m> "
             '';
           };
 
@@ -83,7 +83,7 @@
             text = ''
               #!/usr/bin/env sh
 
-              sudo darwin-rebuild switch --flake /Users/stephen/Documents/Projects/nix-darwin/flake.nix#default
+              sudo darwin-rebuild switch --flake /Users/stephen/Documents/Projects/nix-darwin/
             '';
           };
 
@@ -95,8 +95,10 @@
     in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .#default
-      darwinConfigurations."default" = nix-darwin.lib.darwinSystem {
+      # $ darwin-rebuild build --flake .
+      # Since the hostname and this configuration name match, we don't
+      # need to explicitly name the configuration in the command
+      darwinConfigurations."blueberry" = nix-darwin.lib.darwinSystem {
         modules = [
           configuration
           home-manager.darwinModules.home-manager
