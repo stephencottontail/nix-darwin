@@ -20,8 +20,13 @@
       configuration =
         { pkgs, ... }:
         {
-          # Let Determinate Systems manage Nix
-          nix.enable = false;
+          # nix-darwin manages nix
+          # This is necesary to use the linux-builder so we can build VMs
+          nix = {
+            enable = true;
+            linux-builder.enable = true;
+            settings.experimental-features = "nix-command flakes";
+          };
 
           # TouchID for sudo
           security.pam.services.sudo_local.touchIdAuth = true;
@@ -32,9 +37,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
           ];
-
-          # Necessary for using flakes on this system.
-          nix.settings.experimental-features = "nix-command flakes";
 
           # Set hostname
           networking.hostName = "blueberry";
@@ -62,7 +64,7 @@
 
           # Extra environment variables
           environment.variables = {
-            PLAN9 = "${pkgs.plan9port}";
+            PLAN9 = "${pkgs.plan9port}/plan9";
           };
 
           # The platform the configuration will be used on.
