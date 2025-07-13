@@ -28,6 +28,8 @@
             settings.experimental-features = "nix-command flakes";
           };
 
+          nixpkgs.overlays = [ (import ./overlay.nix) ];
+
           # TouchID for sudo
           security.pam.services.sudo_local.touchIdAuth = true;
 
