@@ -28,7 +28,11 @@
             settings.experimental-features = "nix-command flakes";
           };
 
-          nixpkgs.overlays = [ (import ./overlay.nix) ];
+          # Special config for `nixpkgs`
+          nixpkgs = {
+            overlays = [ (import ./overlay.nix) ];
+            config.allowUnfree = true;
+          };
 
           # TouchID for sudo
           security.pam.services.sudo_local.touchIdAuth = true;
@@ -38,6 +42,7 @@
           environment.systemPackages = [
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
+            pkgs.zoom-us
           ];
 
           # Set hostname
@@ -68,6 +73,11 @@
           environment.variables = {
             PLAN9 = "${pkgs.plan9port}/plan9";
           };
+
+          # Extra fonts
+          fonts.packages = [
+            pkgs.cm_unicode
+          ];
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
