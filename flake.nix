@@ -26,6 +26,7 @@
             enable = true;
             linux-builder.enable = true;
             settings.experimental-features = "nix-command flakes";
+            settings.trusted-users = [ "@admin" ];
           };
 
           # Special config for `nixpkgs`
