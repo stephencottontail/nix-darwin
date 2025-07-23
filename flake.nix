@@ -17,6 +17,14 @@
       home-manager,
     }:
     let
+      pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      fontsrv = pkgs.writeShellScript "fontsrv.sh" ''
+        PLAN9=${pkgs.plan9port}/plan9/bin
+        PATH=/bin:/usr/bin:/usr/local/bin:${pkgs.plan9port}/plan9/bin
+
+        $PLAN9/fontsrv &
+        $PLAN9/9pfuse `$PLAN9/namespace`/font /Users/stephen/mnt/font &
+      '';
       configuration =
         { pkgs, ... }:
         {
@@ -56,10 +64,47 @@
           # $ darwin-rebuild changelog
           system.stateVersion = 6;
 
-          # Let's see how far we can go without home-manager
+          # For now at least it looks like you need `users.users` for `home-manager`
+          # to work and you need `system.primaryUser` for `userLaunchAgents` to
+          # work
           users.users.stephen = {
             name = "stephen";
             home = "/Users/stephen";
+          };
+          system.primaryUser = "stephen";
+
+          # Set up environment stuff
+          environment = {
+            userLaunchAgents."com.stephencottontail.fontsrv.plist" = {
+              enable = true;
+              text = ''
+                <?xml version="1.0" encoding="UTF-8"?>
+                <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST" 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+                <plist version="1.0">
+                <dict>
+                  <key>Label</key>
+                  <string>com.stephencottontail.fontsrv</string>
+                  <key>EnvironmentVariables</key>
+                  <dict>
+                    <key>PATH</key>
+                    <string>/bin:/usr/bin:/usr/local/bin:${pkgs.plan9port}/plan9/bin</string>
+                  </dict>
+                  <key>Program</key>
+                  <string>${fontsrv}</string>
+                  <key>RunAtLoad</key>
+                  <true/>
+                  <key>StandardOutPath</key>
+                  <string>/tmp/fontsrv.out</string>
+                  <key>StandardErrPath</key>
+                  <string>/tmp/fontsrv.err</string>
+                </dict>
+                </plist>
+              '';
+            };
+            variables = {
+              PLAN9 = "${pkgs.plan9port}/plan9";
+              SHELL = "rc";
+            };
           };
 
           # ZSH
@@ -70,6 +115,7 @@
             '';
           };
 
+<<<<<<< Updated upstream
           # Extra environment variables
           environment.variables = {
             PLAN9 = "${pkgs.plan9port}/plan9";
@@ -80,6 +126,8 @@
             pkgs.cm_unicode
           ];
 
+=======
+>>>>>>> Stashed changes
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
@@ -110,7 +158,7 @@
     in
     {
       # Build darwin flake using:
-      # $ darwin-rebuild build --flake .
+      # $ sudo darwin-rebuild build --flake .
       # Since the hostname and this configuration name match, we don't
       # need to explicitly name the configuration in the command
       darwinConfigurations."blueberry" = nix-darwin.lib.darwinSystem {
