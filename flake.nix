@@ -19,11 +19,10 @@
     let
       pkgs = nixpkgs.legacyPackages.aarch64-darwin;
       fontsrv = pkgs.writeShellScript "fontsrv.sh" ''
-        PLAN9=${pkgs.plan9port}/plan9/bin
-        PATH=/bin:/usr/bin:/usr/local/bin:${pkgs.plan9port}/plan9/bin
+        PLAN9="${pkgs.plan9port}/plan9/bin"
+        PATH="/bin:/usr/bin:/usr/local/bin:$PLAN9"
 
-        $PLAN9/fontsrv &
-        $PLAN9/9pfuse `$PLAN9/namespace`/font /Users/stephen/mnt/font &
+        fontsrv -m /Users/stephen/mnt/font &
       '';
       configuration =
         { pkgs, ... }:
@@ -84,6 +83,8 @@
                 <dict>
                   <key>Label</key>
                   <string>com.stephencottontail.fontsrv</string>
+                  <key>WorkingDirectory</key>
+                  <string>/Users/stephen</string>
                   <key>EnvironmentVariables</key>
                   <dict>
                     <key>PATH</key>
@@ -93,10 +94,8 @@
                   <string>${fontsrv}</string>
                   <key>RunAtLoad</key>
                   <true/>
-                  <key>StandardOutPath</key>
-                  <string>/tmp/fontsrv.out</string>
-                  <key>StandardErrPath</key>
-                  <string>/tmp/fontsrv.err</string>
+                  <key>AbandonProcessGroup</key>
+                  <true/>
                 </dict>
                 </plist>
               '';
@@ -115,19 +114,11 @@
             '';
           };
 
-<<<<<<< Updated upstream
-          # Extra environment variables
-          environment.variables = {
-            PLAN9 = "${pkgs.plan9port}/plan9";
-          };
-
           # Extra fonts
           fonts.packages = [
             pkgs.cm_unicode
           ];
 
-=======
->>>>>>> Stashed changes
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
