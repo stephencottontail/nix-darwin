@@ -20,14 +20,11 @@
       configuration =
         { pkgs, ... }:
         {
-          # nix-darwin manages nix
-          # This is necesary to use the linux-builder so we can build VMs
+          # Let Determinate manage Nix
           nix = {
-            enable = true;
-            linux-builder.enable = true;
+            enable = false;
             settings.experimental-features = "nix-command flakes";
-            settings.trusted-users = [ "@admin" ];
-          };
+          }
 
           # Special config for `nixpkgs`
           nixpkgs = {
@@ -111,6 +108,7 @@
     {
       # Build darwin flake using:
       # $ darwin-rebuild build --flake .
+      #
       # Since the hostname and this configuration name match, we don't
       # need to explicitly name the configuration in the command
       darwinConfigurations."blueberry" = nix-darwin.lib.darwinSystem {
