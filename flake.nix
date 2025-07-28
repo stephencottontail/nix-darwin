@@ -24,7 +24,7 @@
           nix = {
             enable = false;
             settings.experimental-features = "nix-command flakes";
-          }
+          };
 
           # Special config for `nixpkgs`
           nixpkgs = {
