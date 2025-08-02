@@ -14,7 +14,7 @@
       self,
       nix-darwin,
       nixpkgs,
-      home-manager,
+      home-manager
     }:
     let
       configuration =
@@ -23,15 +23,19 @@
           # nix-darwin manages nix
           # This is necesary to use the linux-builder so we can build VMs
           nix = {
-            enable = true;
-            linux-builder.enable = true;
+            enable =false;
             settings.experimental-features = "nix-command flakes";
             settings.trusted-users = [ "@admin" ];
           };
 
           # Special config for `nixpkgs`
           nixpkgs = {
-            overlays = [ (import ./overlay.nix) ];
+            overlays = [
+              (import ./overlay.nix)
+              (final: prev: {
+                fuse-t = pkgs.callPackage ./fuse-t/package.nix {};
+              })
+            ];
             config.allowUnfree = true;
           };
 
@@ -44,6 +48,7 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
+            pkgs.fuse-t
           ];
 
           # Set hostname
@@ -79,6 +84,28 @@
           fonts.packages = [
             pkgs.cm_unicode
           ];
+
+          # Copy `fuse-t` files into place
+          system.activationScripts.extraActivation = {
+            enable = true;
+            text = ''
+              cp -r ${pkgs.fuse-t}/Library/Application\ Support/fuse-t/ /Library/Application\ Support/
+              cp -r ${pkgs.fuse-t}/Library/Frameworks/fuse_t.framework /Library/Frameworks/
+              mkdir -p /usr/local/bin
+              mkdir -p /usr/local/lib
+              mkdir -p /usr/local/lib/pkgconfig
+              ln -sf ${pkgs.fuse-t}/Library/Application\ Support/fuse-t/bin/go-nfsv4-1.0.47 /usr/local/bin/go-nfsv4
+              cp ${pkgs.fuse-t}/Library/Application\ Support/fuse-t/lib/libfuse-t-1.0.47.dylib /usr/local/lib/
+              cp ${pkgs.fuse-t}/Library/Application\ Support/fuse-t/lib/libfuse-t-1.0.47.a /usr/local/lib/
+              ln -sf /usr/local/lib/libfuse-t-1.0.47.dylib /usr/local/lib/libfuse-t.dylib
+              ln -sf /usr/local/lib/libfuse-t-1.0.47.a /usr/local/lib/libfuse-t.a
+              cp ${pkgs.fuse-t}/Library/Application\ Support/fuse-t/pkgconfig/fuse-t.pc /usr/local/lib/pkgconfig/
+
+              if ! grep -q "^127\.0\.0\.1\s*fuse-t" /etc/hosts; then
+                echo "127.0.0.1 fuse-t" >> /etc/hosts
+              fi
+            '';
+          };
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
