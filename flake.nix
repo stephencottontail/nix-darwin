@@ -87,7 +87,18 @@
           # Don't mess with it?
           home.stateVersion = "23.05";
 
-          programs.home-manager.enable = true;
+          programs = {
+            home-manager.enable = true;
+            git = {
+              enable = true;
+              userName = "Stephen Dickinson";
+              userEmail = "stephencottontail@me.com";
+              extraConfig = {
+                init.defaultBranch = "main";
+                color.ui = false;
+              };
+            };
+          };
 
           # ZSH
           home.file.".zshrc".text = ''
