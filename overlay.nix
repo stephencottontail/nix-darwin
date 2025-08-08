@@ -7,7 +7,7 @@ final: prev: {
 
         mkdir -p $out/Applications/Sam.app/Contents/{MacOS,Resources}
         echo -e "on run\n" \
-          "\tdo shell script \"$PLAN9/9 acme /Users/stephen &\"\n" \
+          "\tdo shell script \"$PLAN9/9 acme -f $out/plan9/font/lucsans/unicode.10.font /Users/stephen &\"\n" \
           "end run\n" \
           "on open droppedItems\n" \
           "\tset paths to \"\"\n" \
@@ -15,7 +15,7 @@ final: prev: {
           "\t\tset currentItem to item a of droppedItems\n" \
           "\t\tset paths to paths & \" \" & POSIX path of currentItem\n" \
           "\tend repeat\n" \
-          "\tdo shell script \"$PLAN9/9 acme \" & paths & \" &\"\n" \
+          "\tdo shell script \"$PLAN9/9 acme -f $out/plan9/font/lucsans/unicode.10.font \" & paths & \" &\"\n" \
           "end open" > $out/Acme.scpt
         /usr/bin/osacompile -o $out/Applications/Acme.app $out/Acme.scpt
 

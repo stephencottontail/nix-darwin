@@ -41,6 +41,7 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
+            pkgs.nodejs_24
           ];
 
           # Set hostname
@@ -70,6 +71,7 @@
           # Extra environment variables
           environment.variables = {
             PLAN9 = "${pkgs.plan9port}/plan9";
+            PATH = "$PATH:/Users/stephen/.bin";
           };
 
           # Extra fonts
@@ -106,6 +108,40 @@
           '';
 
           # Scripts
+          home.file."bin/pretty" = {
+            executable = true;
+            text = ''
+              #!${pkgs.plan9port}/plan9/bin/rc
+
+              base=`{dirname $%}
+
+              while (! test -d $base/node_modules) {
+                test $base = / && exit 1
+
+                base=`{dirname $base}
+              }
+
+              cat $1 | $base/node_modules/.bin/prettier --stdin-filename $%
+            '';
+          };
+
+          home.file."bin/eslint" = {
+            executable = true;
+            text = ''
+              #!${pkgs.plan9port}/plan9/bin/rc
+
+              base=`{dirname $%}
+
+              while (! test -d $base/node_modules) {
+                test $base = / && exit 1
+
+                base=`{dirname $base}
+              }
+
+              cat $1 | $base/node_modules/.bin/eslint --stdin --stdin-filename $%
+            '';
+          };
+
           home.file."bin/update" = {
             executable = true;
             text = ''
