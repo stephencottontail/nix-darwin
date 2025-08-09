@@ -116,12 +116,14 @@
               base=`{dirname $%}
 
               while (! test -d $base/node_modules) {
-                test $base = / && exit 1
+                test $base = / && echo "Not a Node project" && exit 1
 
                 base=`{dirname $base}
               }
 
-              cat $1 | $base/node_modules/.bin/prettier --stdin-filename $%
+              $base/node_modules/.bin/prettier --write $%
+              echo get | 9p write acme/$winid/ctl
+              echo put | 9p write acme/$winid/ctl
             '';
           };
 
@@ -133,12 +135,12 @@
               base=`{dirname $%}
 
               while (! test -d $base/node_modules) {
-                test $base = / && exit 1
+                test $base = / && echo "Not a Node project" && exit 1
 
                 base=`{dirname $base}
               }
 
-              cat $1 | $base/node_modules/.bin/eslint --stdin --stdin-filename $%
+              cat $% | $base/node_modules/.bin/eslint --stdin --stdin-filename $%
             '';
           };
 
