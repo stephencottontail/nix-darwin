@@ -41,7 +41,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.nodejs_24
           ];
 
           # Set hostname
@@ -71,7 +70,7 @@
           # Extra environment variables
           environment.variables = {
             PLAN9 = "${pkgs.plan9port}/plan9";
-            PATH = "$PATH:/Users/stephen/.bin";
+            PATH = "$PATH:/Users/stephen/bin";
           };
 
           # Extra fonts
@@ -108,6 +107,20 @@
           '';
 
           # Scripts
+          home.file."bin/a" = {
+            executable = true;
+            text = ''
+              #!${pkgs.plan9port}/plan9/bin/rc
+
+              font="${pkgs.plan9port}/plan9/font/pelm/ascii.12.font"
+              BROWSER="safari"
+              TERM="dumb"
+              PAGER="nobs"
+
+              ${pkgs.plan9port}/plan9/bin/9 acme -a -f ${pkgs.plan9port}/plan9/font/pelm/ascii.12.font $* &
+            '';
+          };
+
           home.file."bin/pretty" = {
             executable = true;
             text = ''
