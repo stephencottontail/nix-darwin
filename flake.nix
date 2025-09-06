@@ -41,6 +41,7 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
+            pkgs.devenv
           ];
 
           # Set hostname
