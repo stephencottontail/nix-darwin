@@ -28,7 +28,12 @@
 
           # Special config for `nixpkgs`
           nixpkgs = {
-            overlays = [ (import ./overlay.nix) ];
+            overlays = [
+              (import ./overlay.nix)
+              (final: prev: {
+                acme-lsp = pkgs.callPackage ./acme-lsp/package.nix { };
+              })
+            ];
             config.allowUnfree = true;
           };
 
@@ -42,6 +47,9 @@
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
             pkgs.devenv
+            pkgs.go
+            pksg.gotools
+            pkgs.acme-lsp
           ];
 
           # Set hostname
