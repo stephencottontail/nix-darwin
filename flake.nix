@@ -48,7 +48,7 @@
             pkgs.zoom-us
             pkgs.devenv
             pkgs.go
-            pksg.gotools
+            pkgs.gotools
             pkgs.acme-lsp
           ];
 
