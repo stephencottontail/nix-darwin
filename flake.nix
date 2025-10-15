@@ -33,6 +33,9 @@
               (final: prev: {
                 jasspa-uemacs = pkgs.callPackage ./jasspa-uemacs/package.nix {};
               })
+              (final: prev: {
+                sciteco = pkgs.callPackage ./sciteco/package.nix {};
+              })
             ];
             config.allowUnfree = true;
           };
@@ -46,7 +49,8 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.jasspa-uemacs          
+            pkgs.jasspa-uemacs
+            pkgs.sciteco
           ];
 
           # Set hostname
