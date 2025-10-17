@@ -76,6 +76,8 @@
           # Extra fonts
           fonts.packages = [
             pkgs.cm_unicode
+            pkgs.vt323
+            pkgs.terminus_font_ttf
           ];
 
           # The platform the configuration will be used on.
