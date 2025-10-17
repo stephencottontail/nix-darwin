@@ -51,6 +51,7 @@
             pkgs.zoom-us
             pkgs.jasspa-uemacs
             pkgs.sciteco
+            pkgs.tecoc
           ];
 
           # Set hostname
