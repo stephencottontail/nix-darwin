@@ -1,0 +1,11 @@
+--- a/Makefile	1994-08-20 08:23:46
++++ b/Makefile	2025-10-20 17:01:03
+@@ -9,7 +9,7 @@
+ 		te_fxstub.o
+ 
+ te: $(OBJS)
+-	$(CC) -o te $(OBJS) -ltermcap
++	$(CC) -o te $(OBJS) -lncurses
+ 
+ te_chario.o: te_defs.h te_chario.c
+ te_data.o: te_defs.h te_data.c

@@ -36,6 +36,9 @@
               (final: prev: {
                 sciteco = pkgs.callPackage ./sciteco/package.nix {};
               })
+              (final: prev: {
+                ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix {};
+              })
             ];
             config.allowUnfree = true;
           };
@@ -51,7 +54,7 @@
             pkgs.zoom-us
             pkgs.jasspa-uemacs
             pkgs.sciteco
-            pkgs.tecoc
+            pkgs.ibiblio-teco
           ];
 
           # Set hostname

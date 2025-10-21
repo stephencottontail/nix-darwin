@@ -1,0 +1,11 @@
+--- a/te_subs.c	1993-11-12 13:52:36
++++ b/te_subs.c	2025-10-20 17:05:42
+@@ -248,8 +248,6 @@
+ /* insert1() copies current cell up to dot into a new cell */
+ /* leaves bb pointing to end of that text */
+ /* insert2() copies rest of buffer */
+-
+-struct buffcell *insert_p;
+ 
+ insert1()
+     {
