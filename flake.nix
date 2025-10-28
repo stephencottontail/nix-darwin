@@ -53,6 +53,7 @@
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
             pkgs.jasspa-uemacs
+            pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
           ];
