@@ -112,6 +112,7 @@
               userName = "Stephen Dickinson";
               userEmail = "stephencottontail@me.com";
               extraConfig = {
+                core.editor = "vim";
                 init.defaultBranch = "main";
                 color.ui = false;
               };
