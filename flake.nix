@@ -56,6 +56,7 @@
             pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
+            pkgs.devenv
           ];
 
           # Set hostname
