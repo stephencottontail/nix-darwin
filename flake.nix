@@ -7,6 +7,10 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    emacs-config = {
+      url = "github:stephencottontail/dotemacs";
+      flake = false;
+    };
   };
 
   outputs =
@@ -15,6 +19,7 @@
       nix-darwin,
       nixpkgs,
       home-manager,
+      emacs-config,
     }:
     let
       configuration =
@@ -118,6 +123,9 @@
               };
             };
           };
+
+          # Emacs
+          home.file.".config/emacs".source = emacs-config;
 
           # ZSH
           home.file.".zshrc".text = ''
