@@ -125,7 +125,8 @@
           };
 
           # Emacs
-          home.file.".config/emacs".source = emacs-config;
+          home.file.".config/emacs/init.el".source =
+	    emacs-config + "/init.el";
 
           # ZSH
           home.file.".zshrc".text = ''
