@@ -40,7 +40,7 @@
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix {};
               })
               (final: prev: {
-                vimr = pkgs.callPackage ./VimRefined/package.nix {};
+                vimr = pkgs.callPackage ./vim-refined/package.nix {};
               })
             ];
             config.allowUnfree = true;
