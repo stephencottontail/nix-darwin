@@ -60,6 +60,7 @@
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
+            pkgs.vimr
           ];
 
           # Set hostname
