@@ -28,7 +28,9 @@ stdenv.mkDerivation rec {
     runHook preBuild
 
     mkdir -p $out/Applications
+    mkdir -p $out/bin
     cp -R VimR.app $out/Applications
+    cp VimR.app/Contents/Resources/vimr $out/bin
 
     runHook postBuild
   '';
