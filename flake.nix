@@ -39,6 +39,9 @@
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix {};
               })
+              (final: prev: {
+                vimr = pkgs.callPackage ./VimRefined/package.nix {};
+              })
             ];
             config.allowUnfree = true;
           };
