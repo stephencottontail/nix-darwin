@@ -28,8 +28,7 @@
 
           # Special config for `nixpkgs`
           nixpkgs = {
-            overlays = [
-              (import ./overlay.nix)
+            overlays = import ./overlays ++ [
               (final: prev: {
                 jasspa-uemacs = pkgs.callPackage ./jasspa-uemacs/package.nix {};
               })
@@ -38,9 +37,6 @@
               })
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix {};
-              })
-              (final: prev: {
-                vimr = pkgs.callPackage ./vim-refined/package.nix {};
               })
             ];
             config.allowUnfree = true;
