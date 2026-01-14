@@ -36,9 +36,6 @@
             overlays = [
               (import ./overlay.nix)
               (final: prev: {
-                jasspa-uemacs = pkgs.callPackage ./jasspa-uemacs/package.nix {};
-              })
-              (final: prev: {
                 sciteco = pkgs.callPackage ./sciteco/package.nix {};
               })
               (final: prev: {
@@ -57,7 +54,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.jasspa-uemacs
             pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
