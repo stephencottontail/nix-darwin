@@ -1,5 +1,24 @@
 {
   "nodes": {
+<<<<<<< Updated upstream
+=======
+    "emacs-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768404677,
+        "narHash": "sha256-bulxsCouy+ObWI1LIp7gFQ3kuRSs1PoZJjirLYQOQnc=",
+        "owner": "stephencottontail",
+        "repo": "dotemacs",
+        "rev": "adb212f1c982658db6affb97e3cc4b3e6e7dd82c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "stephencottontail",
+        "repo": "dotemacs",
+        "type": "github"
+      }
+    },
+>>>>>>> Stashed changes
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -7,11 +26,19 @@
         ]
       },
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1751309344,
         "narHash": "sha256-zmb01yyOXttyhJD3kRtW6Pkt1lsPbJvN3P92/GnI0tk=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "78fc50f1cf8e57a974ff4bfe654563fce43d6289",
+=======
+        "lastModified": 1768530555,
+        "narHash": "sha256-EBXKDho4t1YSgodAL6C8M3UTm8MGMZNQ9rQnceR5+6c=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "d21bee5abf9fb4a42b2fa7728bf671f8bb246ba6",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
@@ -43,11 +70,19 @@
     },
     "nixpkgs": {
       "locked": {
+<<<<<<< Updated upstream
         "lastModified": 1750731501,
         "narHash": "sha256-Ah4qq+SbwMaGkuXCibyg+Fwn00el4KmI3XFX6htfDuk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "69dfebb3d175bde602f612915c5576a41b18486b",
+=======
+        "lastModified": 1768395095,
+        "narHash": "sha256-ZhuYJbwbZT32QA95tSkXd9zXHcdZj90EzHpEXBMabaw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "13868c071cc73a5e9f610c47d7bb08e5da64fdd5",
+>>>>>>> Stashed changes
         "type": "github"
       },
       "original": {
