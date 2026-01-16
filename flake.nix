@@ -51,7 +51,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.jasspa-uemacs
             pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
@@ -106,6 +105,10 @@
           # Don't mess with it?
           home.stateVersion = "23.05";
 
+          home.packages = [
+            pkgs.macvim
+          ];
+
           programs = {
             home-manager.enable = true;
             git = {
@@ -124,6 +127,23 @@
           home.file.".zshrc".text = ''
             # Empty file to suppress new user menu
           '';
+
+          # Vim packages
+          #
+          # We do this because we can't use `pkgs.macvim`
+          # as the `packageConfigurable` for
+          # `home.programs.vim.*`, but I still wanted Nix
+          # to manage Vim packages
+          #
+          # TODO: Check if `packDir` supports the newer
+          #       syntax 
+          home.file.".vim/pack".source = pkgs.vimUtils.packDir {
+            "hm-vim-packages" = {
+              start = with pkgs.vimPlugins; [
+                vim-slime
+              ];
+            };
+          };
 
           # Scripts
           home.file."bin/a" = {
