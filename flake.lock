@@ -1,17 +1,5 @@
 {
   "nodes": {
-<<<<<<< HEAD
-    "emacs-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1767244045,
-        "narHash": "sha256-XlYhuaGK3LSjeoOLETABn9uK0SCn6jS4dzLGCc2iazU=",
-        "owner": "stephencottontail",
-        "repo": "dotemacs",
-        "rev": "9807507c236bb66174e48e8a8fe2156e32713b10",
-=======
-<<<<<<< Updated upstream
-=======
     "emacs-config": {
       "flake": false,
       "locked": {
@@ -20,7 +8,6 @@
         "owner": "stephencottontail",
         "repo": "dotemacs",
         "rev": "adb212f1c982658db6affb97e3cc4b3e6e7dd82c",
->>>>>>> ca50cf6 (Copy HM apps for Spotlight)
         "type": "github"
       },
       "original": {
@@ -29,10 +16,6 @@
         "type": "github"
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> ca50cf6 (Copy HM apps for Spotlight)
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -40,27 +23,11 @@
         ]
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1768325819,
-        "narHash": "sha256-mBKqOJkxCRwEhIXfq93WTcDXsBlJ/f1Dfv9thJxrDPs=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "b1fa714d6cd656e3105d1965637be6ab7541d7d7",
-=======
-<<<<<<< Updated upstream
-        "lastModified": 1751309344,
-        "narHash": "sha256-zmb01yyOXttyhJD3kRtW6Pkt1lsPbJvN3P92/GnI0tk=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "78fc50f1cf8e57a974ff4bfe654563fce43d6289",
-=======
         "lastModified": 1768530555,
         "narHash": "sha256-EBXKDho4t1YSgodAL6C8M3UTm8MGMZNQ9rQnceR5+6c=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "d21bee5abf9fb4a42b2fa7728bf671f8bb246ba6",
->>>>>>> Stashed changes
->>>>>>> ca50cf6 (Copy HM apps for Spotlight)
         "type": "github"
       },
       "original": {
@@ -92,27 +59,11 @@
     },
     "nixpkgs": {
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1768302833,
-        "narHash": "sha256-h5bRFy9bco+8QcK7rGoOiqMxMbmn21moTACofNLRMP4=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "61db79b0c6b838d9894923920b612048e1201926",
-=======
-<<<<<<< Updated upstream
-        "lastModified": 1750731501,
-        "narHash": "sha256-Ah4qq+SbwMaGkuXCibyg+Fwn00el4KmI3XFX6htfDuk=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "69dfebb3d175bde602f612915c5576a41b18486b",
-=======
         "lastModified": 1768395095,
         "narHash": "sha256-ZhuYJbwbZT32QA95tSkXd9zXHcdZj90EzHpEXBMabaw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "13868c071cc73a5e9f610c47d7bb08e5da64fdd5",
->>>>>>> Stashed changes
->>>>>>> ca50cf6 (Copy HM apps for Spotlight)
         "type": "github"
       },
       "original": {
