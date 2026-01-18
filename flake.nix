@@ -106,7 +106,7 @@
             if [ -d "$src" ]; then
               for app in "$src"/*; do
                 [ -e "$app" ] || continue
-                cp -L -R -n "$app" "$dst/"
+                rsync --checksum --copy-unsafe-links --archive --chmod=-w --no-group --no-owner "$app" "$dst/"
               done
             fi
           '';
