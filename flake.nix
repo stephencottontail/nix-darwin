@@ -33,8 +33,7 @@
 
           # Special config for `nixpkgs`
           nixpkgs = {
-            overlays = [
-              (import ./overlay.nix)
+            overlays = import ./overlays ++ [
               (final: prev: {
                 sciteco = pkgs.callPackage ./sciteco/package.nix {};
               })
@@ -57,6 +56,7 @@
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
+            pkgs.vimr
           ];
 
           # Set hostname
@@ -110,7 +110,6 @@
               done
             fi
           '';
-
         };
       homeConfiguration =
         { pkgs, ... }:
@@ -118,6 +117,10 @@
           # This is apparently required for internal compatibility
           # Don't mess with it?
           home.stateVersion = "23.05";
+
+          home.packages = [
+            pkgs.macvim
+          ];
 
           programs = {
             home-manager.enable = true;
@@ -149,6 +152,23 @@
           home.file.".zshrc".text = ''
             # Empty file to suppress new user menu
           '';
+
+          # Vim packages
+          #
+          # We do this because we can't use `pkgs.macvim`
+          # as the `packageConfigurable` for
+          # `home.programs.vim.*`, but I still wanted Nix
+          # to manage Vim packages
+          #
+          # TODO: Check if `packDir` supports the newer
+          #       syntax 
+          home.file.".vim/pack".source = pkgs.vimUtils.packDir {
+            "hm-vim-packages" = {
+              start = with pkgs.vimPlugins; [
+                vim-slime
+              ];
+            };
+          };
 
           # Scripts
           home.file."bin/a" = {
