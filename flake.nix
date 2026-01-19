@@ -3,10 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:dwt/nix-darwin/application-linking-done-right";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    emacs-config = {
+      url = "github:stephencottontail/dotemacs";
+      flake = false;
+    };
   };
 
   outputs =
@@ -15,6 +19,7 @@
       nix-darwin,
       nixpkgs,
       home-manager,
+      emacs-config,
     }:
     let
       configuration =
@@ -30,9 +35,6 @@
           nixpkgs = {
             overlays = [
               (import ./overlay.nix)
-              (final: prev: {
-                jasspa-uemacs = pkgs.callPackage ./jasspa-uemacs/package.nix {};
-              })
               (final: prev: {
                 sciteco = pkgs.callPackage ./sciteco/package.nix {};
               })
@@ -52,8 +54,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.jasspa-uemacs
-            pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
@@ -124,6 +124,7 @@
             emacs = {
               enable = true;
               extraPackages = epkgs: [
+                epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
               ];
@@ -139,6 +140,10 @@
               };
             };
           };
+
+          # Emacs
+          home.file.".config/emacs/init.el".source =
+	    emacs-config + "/init.el";
 
           # ZSH
           home.file.".zshrc".text = ''
