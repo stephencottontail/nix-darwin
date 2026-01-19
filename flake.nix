@@ -51,7 +51,7 @@
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
             pkgs.plan9port
-            pkgs.nixfmt-rfc-style
+            pkgs.nixfmt
             pkgs.zoom-us
             pkgs.sciteco
             pkgs.ibiblio-teco
@@ -134,9 +134,11 @@
             };
             git = {
               enable = true;
-              userName = "Stephen Dickinson";
-              userEmail = "stephencottontail@me.com";
-              extraConfig = {
+              settings = {
+                user = {
+                  email = "stephencottontail@me.com";
+                  name = "Stephen Dickinson";
+                };
                 core.editor = "vim";
                 init.defaultBranch = "main";
                 color.ui = false;
