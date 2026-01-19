@@ -54,7 +54,6 @@
             pkgs.plan9port
             pkgs.nixfmt-rfc-style
             pkgs.zoom-us
-            pkgs.emacs
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
@@ -99,19 +98,6 @@
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
-
-          system.activationScripts.applications.text = ''
-            src="/Users/stephen/Applications/Home Manager Apps"
-            dst="/Users/stephen/Applications"
-          
-            if [ -d "$src" ]; then
-              for app in "$src"/*; do
-                [ -e "$app" ] || continue
-                cp -L -R -n "$app" "$dst/"
-              done
-            fi
-          '';
-
         };
       homeConfiguration =
         { pkgs, ... }:
@@ -125,6 +111,7 @@
             emacs = {
               enable = true;
               extraPackages = epkgs: [
+                epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
               ];
