@@ -124,9 +124,15 @@
 
           programs = {
             home-manager.enable = true;
+            direnv = {
+              enable = true;
+              nix-direnv.enable = true;
+            };
             emacs = {
               enable = true;
+              package = pkgs.emacs-macport;
               extraPackages = epkgs: [
+                epkgs.envrc
                 epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
@@ -153,6 +159,7 @@
           # ZSH
           home.file.".zshrc".text = ''
             # Empty file to suppress new user menu
+            eval "$(direnv hook zsh)"
           '';
 
           # Vim packages
