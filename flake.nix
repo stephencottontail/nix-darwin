@@ -11,6 +11,10 @@
       url = "github:stephencottontail/dotemacs";
       flake = false;
     };
+    emacs-plus-src = {
+      url = "github:d12frosted/homebrew-emacs-plus";
+      flake = false;
+    };
   };
 
   outputs =
@@ -19,9 +23,11 @@
       nix-darwin,
       nixpkgs,
       home-manager,
+      emacs-plus-src,
       emacs-config,
     }:
     let
+      iconSrc = "${emacs-plus-src}/community/icons/liquid-glass";
       configuration =
         { pkgs, ... }:
         {
@@ -34,6 +40,28 @@
           # Special config for `nixpkgs`
           nixpkgs = {
             overlays = import ./overlays ++ [
+              (final: prev: {
+	        emacs-macport = prev.emacs-macport.overrideAttrs (old: {
+                  postInstall = (old.postInstall or "") + ''
+                    RES_DIR="$out/Applications/Emacs.app/Contents/Resources";
+                    PLIST="$out/Applications/Emacs.app/Contents/Info.plist";
+
+                    cp "${iconSrc}/Assets.car" "$RES_DIR/Assets.car";
+                    cp "${iconSrc}/Icon.icns" "$RES_DIR/Emacs.icns";
+                    /usr/libexec/PlistBuddy -c "Add :CFBundleIconName string Emacs" "$PLIST" || /usr/libexec/PlistBuddy -c "Set :CFBundleIconName Emacs" "$PLIST"
+                  '';
+                  patches = (old.patches) ++ [
+                    (prev.fetchpatch {
+                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/fix-window-role.patch";
+                      sha256 = "sha256-+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
+                    })
+                    (prev.fetchpatch {
+                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/system-appearance.patch";
+                      sha256 = "sha256-3QLq91AQ6E921/W9nfDjdOUWR8YVsqBAT/W9c1woqAw=";
+                    })
+                  ];
+                });
+              })
               (final: prev: {
                 sciteco = pkgs.callPackage ./sciteco/package.nix {};
               })
