@@ -125,10 +125,13 @@
           system.activationScripts.applications.text = ''
             src="/Users/stephen/Applications/Home Manager Apps"
             dst="/Users/stephen/Applications"
-          
+
+#            for app in "$dst"/*.app; do
+#              rm -r "$dst"/*.app
+#            done
+
             if [ -d "$src" ]; then
               for app in "$src"/*; do
-                [ -e "$app" ] || continue
                 rsync --checksum --copy-unsafe-links --archive --chmod=-w --no-group --no-owner "$app" "$dst/"
               done
             fi
@@ -144,6 +147,16 @@
           home.packages = [
             pkgs.macvim
           ];
+
+          targets.darwin = {
+            copyApps = {
+              enable = true;
+              directory = "Applications";
+            };
+            linkApps = {
+              enable = false;
+            };
+          };
 
           programs = {
             home-manager.enable = true;
