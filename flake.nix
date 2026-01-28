@@ -7,10 +7,6 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    emacs-config = {
-      url = "github:stephencottontail/dotemacs";
-      flake = false;
-    };
     emacs-plus-src = {
       url = "github:d12frosted/homebrew-emacs-plus";
       flake = false;
@@ -24,7 +20,6 @@
       nixpkgs,
       home-manager,
       emacs-plus-src,
-      emacs-config,
     }:
     let
       iconSrc = "${emacs-plus-src}/community/icons/liquid-glass";
@@ -164,6 +159,7 @@
                 epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
+                epkgs.sly
               ];
             };
             git = {
@@ -181,12 +177,12 @@
           };
 
           # Emacs
-          home.file.".config/emacs/init.el".source =
-	    emacs-config + "/init.el";
+          home.file.".config/emacs/init.el" = {
+            source = dotfiles/init.el;
+          };
 
           # ZSH
           home.file.".zshrc".text = ''
-            # Empty file to suppress new user menu
             eval "$(direnv hook zsh)"
           '';
 
