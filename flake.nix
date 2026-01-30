@@ -121,24 +121,15 @@
 
           # The platform the configuration will be used on.
           nixpkgs.hostPlatform = "aarch64-darwin";
-
-          system.activationScripts.applications.text = ''
-            src="/Users/stephen/Applications/Home Manager Apps"
-            dst="/Users/stephen/Applications"
-
-#            for app in "$dst"/*.app; do
-#              rm -r "$dst"/*.app
-#            done
-
-            if [ -d "$src" ]; then
-              for app in "$src"/*; do
-                rsync --checksum --copy-unsafe-links --archive --chmod=-w --no-group --no-owner "$app" "$dst/"
-              done
-            fi
-          '';
         };
       homeConfiguration =
         { pkgs, ... }:
+        let
+          grammars = [
+            pkgs.tree-sitter-grammars.tree-sitter-typescript
+            pkgs.tree-sitter-grammars.tree-sitter-tsx
+          ];
+        in
         {
           # This is apparently required for internal compatibility
           # Don't mess with it?
@@ -190,6 +181,21 @@
           };
 
           # Emacs
+          home.file.".config/emacs/tree-sitter" = {
+            recursive = true;
+            source = pkgs.runCommand "emacs-treesitter-grammars" {} ''
+              mkdir -p $out
+  
+              ${pkgs.lib.concatStringsSep "\n" (builtins.map (grammar: ''
+                CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
+
+                if [ -f "${grammar}/parser" ]; then
+                  ln -s "${grammar}/parser" "$out/libtree-sitter-$CLEAN_NAME.dylib.0"
+                fi
+              '') (grammars))}
+            '';
+          };
+
           home.file.".config/emacs/init.el" = {
             source = dotfiles/init.el;
           };

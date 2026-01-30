@@ -8,6 +8,16 @@
   (when (file-exists-p local-file)
     (load local-file nil (quote nomessage))))
 
+;; This is the name of the built-in package in Emacs 30
+;; I think
+(use-package treesit
+  :init (add-to-list 'treesit-extra-load-path
+		     (concat user-emacs-directory "/tree-sitter")))
+
+(use-package tsx-ts-mode
+  :mode "\\.tsx\\'"
+  :config (add-hook 'tsx-ts-mode-hook #'eglot-ensure))
+
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
