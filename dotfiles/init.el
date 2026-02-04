@@ -21,6 +21,21 @@
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
+(use-package sly
+  :commands sly
+  :config (when (executable-find (getenv "LISP"))
+	    (setq inferior-lisp-program (getenv "LISP"))))
+
+(use-package symex
+  :init (global-set-key (kbd "M-;") #'symex-mode-interface)
+  :hook ((emacs-lisp-mode lisp-mode) . symex-mode))
+
+(use-package symex-core
+  :after (symex))
+
+(use-package symex-ide
+  :after (symex))
+
 (load-theme (quote modus-vivendi-tinted) t)
 (add-to-list 'default-frame-alist '(font . "UnixWare"))
 (add-hook (quote after-make-frame-functions)

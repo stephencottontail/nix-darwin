@@ -123,7 +123,7 @@
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
       homeConfiguration =
-        { pkgs, ... }:
+        { lib, pkgs, ... }:
         let
           grammars = [
             pkgs.tree-sitter-grammars.tree-sitter-typescript
@@ -164,6 +164,8 @@
                 epkgs.meow
                 epkgs.meow-tree-sitter
                 epkgs.sly
+                epkgs.paredit
+                (epkgs.callPackage ./symex/package.nix {})
               ];
             };
             git = {
