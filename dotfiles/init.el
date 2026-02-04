@@ -23,8 +23,9 @@
 
 (use-package sly
   :commands sly
-  :config (when (executable-find (getenv "LISP"))
-	    (setq inferior-lisp-program (getenv "LISP"))))
+  :config (if (and (getenv "LISP") (executable-find (getenv "LISP")))
+	      (setq inferior-lisp-program (getenv "LISP"))
+	    (setq inferior-lisp-program "clisp")))
 
 (use-package symex
   :init (global-set-key (kbd "M-;") #'symex-mode-interface)
