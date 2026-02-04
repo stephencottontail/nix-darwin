@@ -38,12 +38,12 @@
   :after (symex))
 
 (load-theme (quote modus-vivendi-tinted) t)
-(add-to-list 'default-frame-alist '(font . "UnixWare"))
+(add-to-list 'default-frame-alist '(font . "Model 37-20"))
 (add-hook (quote after-make-frame-functions)
           (lambda (frame)
             (with-selected-frame frame
-              (set-frame-font "UnixWare" t t))))
+              (set-frame-font "Model 37-20" t t))))
 (add-hook (quote server-after-make-frame-hook)
 	  (lambda (frame)
 	    (with-selected-frame frame
-	      (sat-frame-font "UnixWare" t t))))
+	      (sat-frame-font "Model 37-20" t t))))
