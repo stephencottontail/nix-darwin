@@ -21,11 +21,23 @@
 (use-package envrc
   :hook (after-init . envrc-global-mode))
 
+(use-package slime
+  :init (add-hook 'lisp-mode-hook 'slime-mode)
+  :config (progn ()
+		 (setq browse-url-handlers
+		       '(("lispworks\\.com" . eww-browse-url)))
+		 (if (and (getenv "LISP") (executable-find (getenv "LISP")))
+		     (setq inferior-lisp-program (getenv "LISP"))
+		   (setq inferior-lisp-program "clisp"))))
+
 (use-package sly
   :commands sly
-  :config (if (and (getenv "LISP") (executable-find (getenv "LISP")))
-	      (setq inferior-lisp-program (getenv "LISP"))
-	    (setq inferior-lisp-program "clisp")))
+  :config (progn ()
+		 (setq browse-url-handlers
+		       '(("lispworks\\.com" . eww-browse-url)))
+		 (if (and (getenv "LISP") (executable-find (getenv "LISP")))
+		     (setq inferior-lisp-program (getenv "LISP"))
+		   (setq inferior-lisp-program "clisp"))))
 
 (use-package symex
   :init (global-set-key (kbd "M-;") #'symex-mode-interface)

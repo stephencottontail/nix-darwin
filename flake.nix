@@ -163,7 +163,7 @@
                 epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
-                epkgs.sly
+                epkgs.slime
                 epkgs.paredit
                 (epkgs.callPackage ./symex/package.nix {})
               ];
