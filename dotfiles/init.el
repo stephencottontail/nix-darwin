@@ -8,6 +8,9 @@
   (when (file-exists-p local-file)
     (load local-file nil (quote nomessage))))
 
+(add-to-list 'backup-directory-alist
+	     `(("," . ,(concat user-emacs-directory "/backups"))))
+
 ;; This is the name of the built-in package in Emacs 30
 ;; I think
 (use-package treesit
