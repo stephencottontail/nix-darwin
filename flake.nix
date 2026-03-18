@@ -36,7 +36,7 @@
           nixpkgs = {
             overlays = import ./overlays ++ [
               (final: prev: {
-	        emacs-macport = prev.emacs-macport.overrideAttrs (old: {
+                emacs-macport = prev.emacs-macport.overrideAttrs (old: {
                   postInstall = (old.postInstall or "") + ''
                     RES_DIR="$out/Applications/Emacs.app/Contents/Resources";
                     PLIST="$out/Applications/Emacs.app/Contents/Info.plist";
@@ -58,10 +58,10 @@
                 });
               })
               (final: prev: {
-                sciteco = pkgs.callPackage ./sciteco/package.nix {};
+                sciteco = pkgs.callPackage ./sciteco/package.nix { };
               })
               (final: prev: {
-                ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix {};
+                ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix { };
               })
             ];
             config.allowUnfree = true;
@@ -165,7 +165,7 @@
                 epkgs.meow-tree-sitter
                 epkgs.slime
                 epkgs.paredit
-                (epkgs.callPackage ./symex/package.nix {})
+                (epkgs.callPackage ./symex/package.nix { })
               ];
             };
             git = {
@@ -185,16 +185,18 @@
           # Emacs
           home.file.".config/emacs/tree-sitter" = {
             recursive = true;
-            source = pkgs.runCommand "emacs-treesitter-grammars" {} ''
+            source = pkgs.runCommand "emacs-treesitter-grammars" { } ''
               mkdir -p $out
-  
-              ${pkgs.lib.concatStringsSep "\n" (builtins.map (grammar: ''
-                CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
 
-                if [ -f "${grammar}/parser" ]; then
-                  ln -s "${grammar}/parser" "$out/libtree-sitter-$CLEAN_NAME.dylib.0"
-                fi
-              '') (grammars))}
+              ${pkgs.lib.concatStringsSep "\n" (
+                builtins.map (grammar: ''
+                  CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
+
+                  if [ -f "${grammar}/parser" ]; then
+                    ln -s "${grammar}/parser" "$out/libtree-sitter-$CLEAN_NAME.dylib.0"
+                  fi
+                '') (grammars)
+              )}
             '';
           };
 
