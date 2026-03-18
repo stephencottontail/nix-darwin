@@ -79,7 +79,6 @@
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
-            pkgs.vimr
           ];
 
           # Set hostname
@@ -117,6 +116,7 @@
             pkgs.cm_unicode
             pkgs.vt323
             pkgs.terminus_font_ttf
+            pkgs.nerd-fonts.hasklug
           ];
 
           # The platform the configuration will be used on.
@@ -209,20 +209,28 @@
             eval "$(direnv hook zsh)"
           '';
 
-          # Vim packages
-          #
-          # We do this because we can't use `pkgs.macvim`
-          # as the `packageConfigurable` for
-          # `home.programs.vim.*`, but I still wanted Nix
-          # to manage Vim packages
-          #
-          # TODO: Check if `packDir` supports the newer
-          #       syntax 
-          home.file.".vim/pack".source = pkgs.vimUtils.packDir {
-            "hm-vim-packages" = {
-              start = with pkgs.vimPlugins; [
-                vim-slime
-              ];
+          home.file = {
+            ".vim/vimrc" = {
+              source = dotfiles/vimrc;
+            };
+            # Vim packages
+            #
+            # We do this because we can't use `pkgs.macvim`
+            # as the `packageConfigurable` for
+            # `home.programs.vim.*`, but I still wanted Nix
+            # to manage Vim packages
+            #
+            # TODO: Check if `packDir` supports the newer
+            #       syntax
+            # TODO: ^ what
+            ".vim/pack" = {
+              source = pkgs.vimUtils.packDir {
+                "hm-vim-packages" = {
+                  start = with pkgs.vimPlugins; [
+                    ale
+                  ];
+                };
+              };
             };
           };
 

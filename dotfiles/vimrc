@@ -1,0 +1,14 @@
+set nocompatible
+
+set rtp^=$HOME/.vim/pack
+set packpath^=$HOME/.vim/pack
+packloadall
+
+filetype plugin on
+filetype indent on
+
+set guifont=HasklugNFM-Med:h18
+set macligatures
+let g:ale_sign_error = ''
+let g:ale_sign_warning = '' 
+let g:ale_sign_info = ''
