@@ -13,9 +13,12 @@ let g:ale_sign_info = ''
 
 " Look and feel
 " Assume DarkBlue theme, then adjust from there
-color darkblue
-set guifont=HasklugNFM-Med:h18
-set macligatures
+if has("gui_macvim")
+	let macvim_skip_colorscheme=1
+	color darkblue
+	set macligatures
+	set guifont=HasklugNFM-Med:h18
+endif
 let s:blue = '#00008b'
 let s:bright_blue = '#0030ff'
 let s:white = '#ffffff'
