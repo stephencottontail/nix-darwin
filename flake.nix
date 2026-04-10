@@ -65,6 +65,7 @@
               })
             ];
             config.allowUnfree = true;
+            config.input-fonts.acceptLicense = true;
           };
 
           # TouchID for sudo
@@ -117,6 +118,7 @@
             pkgs.vt323
             pkgs.terminus_font_ttf
             pkgs.nerd-fonts.hasklug
+            pkgs.input-fonts
           ];
 
           # The platform the configuration will be used on.
@@ -165,6 +167,7 @@
                 epkgs.meow-tree-sitter
                 epkgs.slime
                 epkgs.paredit
+                epkgs.solarized-theme
                 (epkgs.callPackage ./symex/package.nix { })
               ];
             };

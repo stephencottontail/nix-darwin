@@ -52,13 +52,13 @@
 (use-package symex-ide
   :after (symex))
 
-(load-theme (quote modus-vivendi-tinted) t)
-(add-to-list 'default-frame-alist '(font . "Model 37-20"))
+(load-theme (quote solarized) t)
+(add-to-list 'default-frame-alist '(font . "-*-Input Sans Condensed-light-normal-condensed-*-*-*-*-*-p-0-iso10646-1"))
 (add-hook (quote after-make-frame-functions)
           (lambda (frame)
             (with-selected-frame frame
-              (set-frame-font "Model 37-20" t t))))
+              (set-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-*-*-*-*-p-0-iso10646-1" t t))))
 (add-hook (quote server-after-make-frame-hook)
 	  (lambda (frame)
 	    (with-selected-frame frame
-	      (sat-frame-font "Model 37-20" t t))))
+	      (sat-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-*-*-*-*-p-0-iso10646-1" t t))))
