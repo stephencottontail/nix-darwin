@@ -52,14 +52,14 @@
 (use-package symex-ide
   :after (symex))
 
-(load-theme (quote solarized-dark-high-contrast) t)
+(load-theme (quote deeper-blue) t)
 (tool-bar-mode -1)
-(add-to-list 'default-frame-alist '(font . "-*-Input Sans Condensed-light-normal-condensed-*-24-*-*-*-p-0-iso10646-1"))
+(add-to-list 'default-frame-alist '(font . "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1"))
 (add-hook (quote after-make-frame-functions)
           (lambda (frame)
             (with-selected-frame frame
-              (set-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-24-*-*-*-p-0-iso10646-1" t t))))
+              (set-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1" t t))))
 (add-hook (quote server-after-make-frame-hook)
 	  (lambda (frame)
 	    (with-selected-frame frame
-	      (sat-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-24-*-*-*-p-0-iso10646-1" t t))))
+	      (sat-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1" t t))))

@@ -167,7 +167,6 @@
                 epkgs.meow-tree-sitter
                 epkgs.slime
                 epkgs.paredit
-                epkgs.solarized-theme
                 (epkgs.callPackage ./symex/package.nix { })
               ];
             };
