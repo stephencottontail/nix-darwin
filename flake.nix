@@ -234,6 +234,10 @@
                 };
               };
             };
+
+            ".vim/colors" = {
+              source = dotfiles/colors;
+            };
           };
 
           # Scripts
