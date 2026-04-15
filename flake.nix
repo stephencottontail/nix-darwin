@@ -116,7 +116,7 @@
           fonts.packages = [
             pkgs.cm_unicode
             pkgs.vt323
-            pkgs.terminus_font_ttf
+            pkgs.nerd-fonts.bigblue-terminal
             pkgs.nerd-fonts.hasklug
             pkgs.input-fonts
           ];
