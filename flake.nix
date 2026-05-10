@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -16,6 +17,7 @@
   outputs =
     inputs@{
       self,
+      neovim-nightly,
       nix-darwin,
       nixpkgs,
       home-manager,
@@ -35,6 +37,7 @@
           # Special config for `nixpkgs`
           nixpkgs = {
             overlays = import ./overlays ++ [
+              inputs.neovim-nightly.overlays.default
               (final: prev: {
                 emacs-macport = prev.emacs-macport.overrideAttrs (old: {
                   postInstall = (old.postInstall or "") + ''
@@ -82,6 +85,7 @@
             pkgs.devenv
             pkgs.groff
             pkgs.groff.perl
+            pkgs.neovim
           ];
 
           # Set hostname
@@ -120,6 +124,7 @@
             pkgs.vt323
             pkgs.nerd-fonts.bigblue-terminal
             pkgs.nerd-fonts.hasklug
+            pkgs.nerd-fonts._3270
             pkgs.input-fonts
           ];
 
