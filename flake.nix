@@ -80,6 +80,8 @@
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
+            pkgs.groff
+            pkgs.groff.perl
           ];
 
           # Set hostname
