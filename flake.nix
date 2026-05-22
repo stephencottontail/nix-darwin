@@ -58,7 +58,7 @@
                 });
               })
               (final: prev: {
-                sciteco = pkgs.callPackage ./sciteco/package.nix { };
+#                sciteco = pkgs.callPackage ./sciteco/package.nix { };
               })
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix { };
@@ -77,11 +77,12 @@
             pkgs.plan9port
             pkgs.nixfmt
             pkgs.zoom-us
-            pkgs.sciteco
+#            pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.devenv
             pkgs.groff
             pkgs.groff.perl
+
           ];
 
           # Set hostname
@@ -141,6 +142,8 @@
 
           home.packages = [
             pkgs.macvim
+            pkgs.mono
+            pkgs.roslyn-ls
           ];
 
           targets.darwin = {

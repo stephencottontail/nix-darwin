@@ -10,6 +10,9 @@ filetype indent on
 let g:ale_sign_error = ''
 let g:ale_sign_warning = '' 
 let g:ale_sign_info = ''
+let g:ale_linters = {
+\   'cs': ['omnisharp']
+\}
 
 " Look and feel
 " Assume DarkBlue theme, then adjust from there
