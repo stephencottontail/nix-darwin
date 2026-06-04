@@ -79,10 +79,9 @@
             pkgs.zoom-us
 #            pkgs.sciteco
             pkgs.ibiblio-teco
-            pkgs.devenv
             pkgs.groff
             pkgs.groff.perl
-
+            pkgs.nodejs_24
           ];
 
           # Set hostname
