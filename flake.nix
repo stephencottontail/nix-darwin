@@ -219,6 +219,20 @@
             ".vim/vimrc" = {
               source = dotfiles/vimrc;
             };
+            ".vim/after/ftplugin/javascript.vim" = {
+              text = ''
+                setlocal shiftwidth=4
+                setlocal tabstop=4
+                setlocal noexpandtab
+              '';
+            };
+            ".vim/after/ftplugin/typescript.vim" = {
+              text = ''
+                setlocal shiftwidth=4
+                setlocal tabstop=4
+                setlocal noexpandtab
+              '';
+            };
             # Vim packages
             #
             # We do this because we can't use `pkgs.macvim`
@@ -278,7 +292,7 @@
             '';
           };
 
-          home.file."bin/eslint" = {
+          home.file."bin/lint" = {
             executable = true;
             text = ''
               #!${pkgs.plan9port}/plan9/bin/rc

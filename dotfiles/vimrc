@@ -11,7 +11,11 @@ let g:ale_sign_error = ''
 let g:ale_sign_warning = '' 
 let g:ale_sign_info = ''
 let g:ale_linters = {
-\   'cs': ['omnisharp']
+\   'cs': ['omnisharp'],
+\   'typescript': ['eslint', 'tsserver']
+\}
+let g:ale_fixers = {
+\   'typescript': ['eslint', 'tsserver']
 \}
 
 " Look and feel
@@ -20,8 +24,7 @@ if has("gui_macvim")
 	let macvim_skip_colorscheme=1
 	color deeperblue
 	set macligatures
-	" set guifont=HasklugNFM-Med:h22
-	set guifont=BigBlueTerm437NF:h22
+	set guifont=HasklugNFM-Med:h22
 endif
 let s:blue = '#00008b'
 let s:bright_blue = '#0030ff'
