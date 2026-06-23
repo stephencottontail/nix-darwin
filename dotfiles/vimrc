@@ -1,4 +1,5 @@
 set nocompatible
+set hidden
 
 set rtp^=$HOME/.vim/pack
 set packpath^=$HOME/.vim/pack
@@ -31,4 +32,4 @@ let s:bright_blue = '#0030ff'
 let s:white = '#ffffff'
 execute 'hi Pmenu guifg=' . s:white . ' guibg=' . s:blue
 execute 'hi PmenuSel guifg=' . s:white . ' guibg=' . s:bright_blue
-
+hi! QuickfixLine gui=NONE

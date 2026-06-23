@@ -23,6 +23,17 @@
     }:
     let
       iconSrc = "${emacs-plus-src}/community/icons/liquid-glass";
+      starScript = ''
+        setlocal shiftwidth=4
+        setlocal tabstop=4
+        setlocal noexpandtab
+
+        nnoremap K :ALEHover<cr>
+        nnoremap gd :ALEGoToDefinition<cr>
+        nnoremap gr :ALEFindReferences<cr>
+        nnoremap g] :ALENext<cr>
+        nnoremap g[ :ALEPrevious<cr>
+      '';
       configuration =
         { pkgs, ... }:
         {
@@ -220,18 +231,10 @@
               source = dotfiles/vimrc;
             };
             ".vim/after/ftplugin/javascript.vim" = {
-              text = ''
-                setlocal shiftwidth=4
-                setlocal tabstop=4
-                setlocal noexpandtab
-              '';
+              text = starScript;
             };
             ".vim/after/ftplugin/typescript.vim" = {
-              text = ''
-                setlocal shiftwidth=4
-                setlocal tabstop=4
-                setlocal noexpandtab
-              '';
+              text = starScript;
             };
             # Vim packages
             #
