@@ -23,13 +23,15 @@ let g:ale_fixers = {
 " Assume DarkBlue theme, then adjust from there
 if has("gui_macvim")
 	let macvim_skip_colorscheme=1
+	let s:blue = '#00008b'
+	let s:bright_blue = '#0030ff'
+	let s:white = '#ffffff'
+
 	color deeperblue
 	set macligatures
 	set guifont=HasklugNFM-Med:h22
+	execute 'hi Pmenu guifg=' . s:white . ' guibg=' . s:blue
+	execute 'hi PmenuSel guifg=' . s:white . ' guibg=' . s:bright_blue
+	hi! QuickfixLine gui=NONE
 endif
-let s:blue = '#00008b'
-let s:bright_blue = '#0030ff'
-let s:white = '#ffffff'
-execute 'hi Pmenu guifg=' . s:white . ' guibg=' . s:blue
-execute 'hi PmenuSel guifg=' . s:white . ' guibg=' . s:bright_blue
-hi! QuickfixLine gui=NONE
+
