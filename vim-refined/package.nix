@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vimr";
-  version = "v0.59.3";
-  timestamp="20251222.155246";
+  version = "v0.65.0";
+  timestamp="20260706.084223";
 
   src = fetchurl {
     url = "https://github.com/qvacua/${pname}/releases/download/${version}-${timestamp}/VimR-${version}.tar.bz2";
     name ="VimR.tar.bz2";
-    hash = "sha256-JNEuXbR0jduDqXtxogayl7RaDcCleiV+RGbj5LA8eps=";
+    hash = "sha256-vdHLqDAB+cun8cgpgaVGlrqTl/A4Jvh0gK7aW6bVo44=";
   };
 
   # note: after Nix unpacks the source it assumes there's only one top-level
@@ -35,3 +35,4 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 }
+

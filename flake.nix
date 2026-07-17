@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -17,7 +16,6 @@
   outputs =
     inputs@{
       self,
-      neovim-nightly,
       nix-darwin,
       nixpkgs,
       home-manager,
@@ -37,7 +35,6 @@
           # Special config for `nixpkgs`
           nixpkgs = {
             overlays = import ./overlays ++ [
-              inputs.neovim-nightly.overlays.default
               (final: prev: {
                 emacs-macport = prev.emacs-macport.overrideAttrs (old: {
                   postInstall = (old.postInstall or "") + ''
@@ -65,6 +62,9 @@
               })
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix { };
+              })
+              (final: prev: {
+                vimr = pkgs.callPackage ./vim-refined/package.nix { };
               })
             ];
             config.allowUnfree = true;
@@ -146,6 +146,9 @@
 
           home.packages = [
             pkgs.macvim
+            pkgs.vimr
+            #pkgs.mono
+            #pkgs.roslyn-ls
           ];
 
           targets.darwin = {
