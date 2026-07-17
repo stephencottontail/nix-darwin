@@ -85,7 +85,6 @@
             pkgs.devenv
             pkgs.groff
             pkgs.groff.perl
-            pkgs.neovim
           ];
 
           # Set hostname
@@ -195,23 +194,6 @@
           };
 
           # Emacs
-          home.file.".config/emacs/tree-sitter" = {
-            recursive = true;
-            source = pkgs.runCommand "emacs-treesitter-grammars" { } ''
-              mkdir -p $out
-
-              ${pkgs.lib.concatStringsSep "\n" (
-                builtins.map (grammar: ''
-                  CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
-
-                  if [ -f "${grammar}/parser" ]; then
-                    ln -s "${grammar}/parser" "$out/libtree-sitter-$CLEAN_NAME.dylib.0"
-                  fi
-                '') (grammars)
-              )}
-            '';
-          };
-
           home.file.".config/emacs/init.el" = {
             source = dotfiles/init.el;
           };
@@ -221,7 +203,36 @@
             eval "$(direnv hook zsh)"
           '';
 
+          # NeoVim Treesitter
+          home.file.".config/nvim/parser" = {
+            recursive = true;
+            source = pkgs.runCommand "neovim-treesitter-grammars" { } ''
+              mkdir -p $out
+
+              ${pkgs.lib.concatStringsSep "\n" (
+                builtins.map (grammar: ''
+                  CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
+
+                  if [ -f "${grammar}/parser" ]; then
+                    ln -s "${grammar}/parser" "$out/$CLEAN_NAME.so"
+                  fi
+                '') (grammars)
+              )}
+            '';
+          };
+
           home.file = {
+            # TODO: at some point I should write another map that pulls out
+            # just the query files I need and symlinks them into
+            # `$XDG_CONFIG_HOME`
+            ".config/nvim/init.vim" = {
+              text = ''
+                source $HOME/.vim/vimrc
+
+                set runtimepath^=${pkgs.vimPlugins.nvim-treesitter}/runtime
+                set packpath^=$HOME/.vim/pack
+              '';
+            };
             ".vim/vimrc" = {
               source = dotfiles/vimrc;
             };
@@ -239,7 +250,9 @@
               source = pkgs.vimUtils.packDir {
                 "hm-vim-packages" = {
                   start = with pkgs.vimPlugins; [
-                    ale
+                    #ale
+                    conjure
+                    nvim-treesitter
                   ];
                 };
               };
