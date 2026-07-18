@@ -16,12 +16,12 @@
 
 gccStdenv.mkDerivation {
   pname = "sciteco";
-  version = "2.4.0";
+  version = "2.5.2";
 
   src = fetchgit {
     url             = "git://git.fmsbw.de/sciteco/";
-    rev             = "cb972565f3050e567e6781b4abea82932d8d7310";
-    hash            = "sha256-l0evFt7KwF0C8yN1m+5hWRDa4KMPDH8FNP95hBjzhh4=";
+    rev             = "cdcbab03107fd74855cfd201161bd116b2eebba8";
+    hash            = "sha256-eqmDIpnOItn0CiRNeUQ3D8LQX7FFahd6wNaEDwlo+nc=";
     fetchSubmodules = true;
   };
 
@@ -62,3 +62,4 @@ gccStdenv.mkDerivation {
     runHook postInstall
   '';
 }
+
