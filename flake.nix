@@ -85,6 +85,7 @@
             pkgs.devenv
             pkgs.groff
             pkgs.groff.perl
+            pkgs.typescript-language-server
           ];
 
           # Set hostname
@@ -231,6 +232,10 @@
 
                 set runtimepath^=${pkgs.vimPlugins.nvim-treesitter}/runtime
                 set packpath^=$HOME/.vim/pack
+
+                lua << EOF
+                  vim.lsp.enable({ "ts_ls" })
+                EOF
               '';
             };
             ".vim/vimrc" = {
@@ -253,6 +258,7 @@
                     #ale
                     conjure
                     nvim-treesitter
+                    nvim-lspconfig
                   ];
                 };
               };
