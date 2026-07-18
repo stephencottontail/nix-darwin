@@ -88,11 +88,14 @@
             pkgs.plan9port
             pkgs.nixfmt
             pkgs.zoom-us
-#            pkgs.sciteco
+#           pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.groff
             pkgs.groff.perl
             pkgs.nodejs_24
+            pkgs.sbcl
+            pkgs.sbclPackages.swank
+            pkgs.roswell
           ];
 
           # Set hostname
