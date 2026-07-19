@@ -235,11 +235,34 @@
 
                 lua << EOF
                   vim.lsp.enable({ "ts_ls" })
+
+                  vim.api.nvim_create_autocmd('DiagnosticChanged', {
+                    callback = function()
+                      vim.diagnostic.setloclist({ open = false })
+                    end
+                  })
                 EOF
               '';
             };
             ".vim/vimrc" = {
               source = dotfiles/vimrc;
+            };
+            ".config/nvim/after/ftplugin/javascript.vim" = {
+              text = ''
+                setlocal shiftwidth=4
+                setlocal tabstop=4
+                setlocal noexpandtab
+              '';
+            };
+            ".config/nvim/after/ftplugin/typescript.vim" = {
+              text = ''
+                source $HOME/.config/nvim/after/ftplugin/javascript.vim
+              '';
+            };
+            ".config/nvim/after/ftplugin/lisp.vim" = {
+              text = ''
+                packadd conjure
+              '';
             };
             # Vim packages
             #
@@ -255,10 +278,11 @@
               source = pkgs.vimUtils.packDir {
                 "hm-vim-packages" = {
                   start = with pkgs.vimPlugins; [
-                    #ale
-                    conjure
                     nvim-treesitter
                     nvim-lspconfig
+                  ];
+                  opt = with pkgs.vimPlugins; [
+                    conjure
                   ];
                 };
               };
