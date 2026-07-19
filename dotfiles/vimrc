@@ -1,12 +1,18 @@
 set nocompatible
 set hidden
 
-set rtp^=$HOME/.vim/pack
-set packpath^=$HOME/.vim/pack
+set rtp^=$HOME/.vim/non-nix/pack,$HOME/.vim/pack
+set packpath^=$HOME/.vim/non-nix,$HOME/.vim/pack
 packloadall
 
 filetype plugin on
 filetype indent on
+
+let g:vlime_cl_impl = 'ros'
+let g:vlime_cl_use_terminal = v:true
+function! VlimeBuildServerCommandFor_ros(vlime_loader, vlime_eval)
+	return ['ros', 'run', '--load', a:vlime_loader, '--eval', a:vlime_eval]
+endfunction
 
 let g:ale_sign_error = ''
 let g:ale_sign_warning = '' 
@@ -29,7 +35,7 @@ if has("gui_macvim")
 
 	color deeperblue
 	set macligatures
-	set guifont=HasklugNFM-Med:h22
+	set guifont=3270NF:h24
 	execute 'hi Pmenu guifg=' . s:white . ' guibg=' . s:blue
 	execute 'hi PmenuSel guifg=' . s:white . ' guibg=' . s:bright_blue
 	hi! QuickfixLine gui=NONE

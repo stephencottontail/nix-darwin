@@ -76,7 +76,6 @@
               })
             ];
             config.allowUnfree = true;
-            config.input-fonts.acceptLicense = true;
           };
 
           # TouchID for sudo
@@ -134,7 +133,7 @@
             pkgs.vt323
             pkgs.nerd-fonts.bigblue-terminal
             pkgs.nerd-fonts.hasklug
-            pkgs.input-fonts
+            pkgs.nerd-fonts._3270
           ];
 
           # The platform the configuration will be used on.
