@@ -74,6 +74,9 @@
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix { };
               })
+              (final: prev: {
+                vlime = pkgs.callPackage ./vlime/package.nix { };
+              })
             ];
             config.allowUnfree = true;
           };
@@ -251,8 +254,9 @@
             ".vim/pack" = {
               source = pkgs.vimUtils.packDir {
                 "hm-vim-packages" = {
-                  start = with pkgs.vimPlugins; [
-                    ale
+                  start = [
+                    pkgs.vimPlugins.ale
+                    pkgs.vlime
                   ];
                 };
               };
