@@ -66,6 +66,22 @@
               (final: prev: {
                 vimr = pkgs.callPackage ./vim-refined/package.nix { };
               })
+              (final: prev: {
+                vimPlugins = prev.vimPlugins // {
+                  conjure = prev.vimPlugins.conjure.overrideAttrs (old: {
+                    pname = "conjure";
+                    version = "4.60.0";
+                    doCheck = false;
+
+                    src = prev.fetchFromGitHub {
+                      owner = "Olical";
+                      repo = "conjure";
+                      tag = "v4.60.0";
+                      hash = "sha256-wz+nHMR6gYXGDxSAZExd7CItONY2MERYzDapNpKFLmc=";
+                    };
+                  });
+                };
+              })
             ];
             config.allowUnfree = true;
             config.input-fonts.acceptLicense = true;
@@ -133,6 +149,7 @@
         { lib, pkgs, ... }:
         let
           grammars = [
+            pkgs.tree-sitter-grammars.tree-sitter-commonlisp
             pkgs.tree-sitter-grammars.tree-sitter-typescript
             pkgs.tree-sitter-grammars.tree-sitter-tsx
           ];
@@ -159,6 +176,35 @@
 
           programs = {
             home-manager.enable = true;
+            neovim = {
+              enable = true;
+              extraConfig = ''
+                source $HOME/.vim/vimrc
+  
+                set runtimepath^=${pkgs.vimPlugins.nvim-treesitter}/runtime
+                " set packpath^=$HOME/.vim/pack
+  
+                lua << EOF
+                  vim.lsp.enable({ "ts_ls" })
+  
+                  vim.api.nvim_create_autocmd('DiagnosticChanged', {
+                    callback = function()
+                      vim.diagnostic.setloclist({ open = false })
+                    end
+                  })
+                EOF
+              '';
+              plugins = with pkgs.vimPlugins; [
+                nvim-lspconfig
+                nvim-treesitter
+                nvim-treesitter-parsers.commonlisp
+                nvim-treesitter-parsers.typescript
+                nvim-treesitter-parsers.tsx
+                conjure
+              ];
+              withRuby = false;
+              withPython3 = false;
+            };
             direnv = {
               enable = true;
               nix-direnv.enable = true;
@@ -200,46 +246,10 @@
             eval "$(direnv hook zsh)"
           '';
 
-          # NeoVim Treesitter
-          home.file.".config/nvim/parser" = {
-            recursive = true;
-            source = pkgs.runCommand "neovim-treesitter-grammars" { } ''
-              mkdir -p $out
-
-              ${pkgs.lib.concatStringsSep "\n" (
-                builtins.map (grammar: ''
-                  CLEAN_NAME=$(echo "${grammar.pname}" | sed 's/^tree-sitter-//')
-
-                  if [ -f "${grammar}/parser" ]; then
-                    ln -s "${grammar}/parser" "$out/$CLEAN_NAME.so"
-                  fi
-                '') (grammars)
-              )}
-            '';
-          };
-
           home.file = {
             # TODO: at some point I should write another map that pulls out
             # just the query files I need and symlinks them into
             # `$XDG_CONFIG_HOME`
-            ".config/nvim/init.vim" = {
-              text = ''
-                source $HOME/.vim/vimrc
-
-                set runtimepath^=${pkgs.vimPlugins.nvim-treesitter}/runtime
-                set packpath^=$HOME/.vim/pack
-
-                lua << EOF
-                  vim.lsp.enable({ "ts_ls" })
-
-                  vim.api.nvim_create_autocmd('DiagnosticChanged', {
-                    callback = function()
-                      vim.diagnostic.setloclist({ open = false })
-                    end
-                  })
-                EOF
-              '';
-            };
             ".vim/vimrc" = {
               source = dotfiles/vimrc;
             };
@@ -260,30 +270,6 @@
                 packadd conjure
               '';
             };
-            # Vim packages
-            #
-            # We do this because we can't use `pkgs.macvim`
-            # as the `packageConfigurable` for
-            # `home.programs.vim.*`, but I still wanted Nix
-            # to manage Vim packages
-            #
-            # TODO: Check if `packDir` supports the newer
-            #       syntax
-            # TODO: ^ what
-            ".vim/pack" = {
-              source = pkgs.vimUtils.packDir {
-                "hm-vim-packages" = {
-                  start = with pkgs.vimPlugins; [
-                    nvim-treesitter
-                    nvim-lspconfig
-                  ];
-                  opt = with pkgs.vimPlugins; [
-                    conjure
-                  ];
-                };
-              };
-            };
-
             ".vim/colors" = {
               source = dotfiles/colors;
             };

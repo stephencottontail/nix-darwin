@@ -1,7 +1,7 @@
 set nocompatible
 
 set rtp^=$HOME/.vim/pack
-set packpath^=$HOME/.vim/pack
+" set packpath^=$HOME/.vim/pack
 packloadall
 
 filetype plugin on
