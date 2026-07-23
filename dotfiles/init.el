@@ -21,9 +21,6 @@
   :mode "\\.tsx\\'"
   :config (add-hook 'tsx-ts-mode-hook #'eglot-ensure))
 
-(use-package envrc
-  :hook (after-init . envrc-global-mode))
-
 (use-package slime
   :init (add-hook 'lisp-mode-hook 'slime-mode)
   :config (progn ()
@@ -42,24 +39,14 @@
 		     (setq inferior-lisp-program (getenv "LISP"))
 		   (setq inferior-lisp-program "clisp"))))
 
-(use-package symex
-  :init (global-set-key (kbd "M-;") #'symex-mode-interface)
-  :hook ((emacs-lisp-mode lisp-mode) . symex-mode))
-
-(use-package symex-core
-  :after (symex))
-
-(use-package symex-ide
-  :after (symex))
-
 (load-theme (quote deeper-blue) t)
 (tool-bar-mode -1)
-(add-to-list 'default-frame-alist '(font . "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1"))
+(add-to-list 'default-frame-alist '(font . "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1"))
 (add-hook (quote after-make-frame-functions)
           (lambda (frame)
             (with-selected-frame frame
-              (set-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1" t t))))
+              (set-frame-font "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1" t t))))
 (add-hook (quote server-after-make-frame-hook)
 	  (lambda (frame)
 	    (with-selected-frame frame
-	      (sat-frame-font "-*-Input Sans Condensed-light-normal-condensed-*-22-*-*-*-p-0-iso10646-1" t t))))
+	      (sat-frame-font "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1" t t))))

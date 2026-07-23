@@ -177,13 +177,11 @@
               enable = true;
               package = pkgs.emacs-macport;
               extraPackages = epkgs: [
-                epkgs.envrc
                 epkgs.org
                 epkgs.meow
                 epkgs.meow-tree-sitter
                 epkgs.slime
                 epkgs.paredit
-                (epkgs.callPackage ./symex/package.nix { })
               ];
             };
             git = {
