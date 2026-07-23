@@ -77,7 +77,6 @@
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
-            pkgs.plan9port
             pkgs.nixfmt
             pkgs.zoom-us
             pkgs.sciteco
@@ -114,7 +113,6 @@
 
           # Extra environment variables
           environment.variables = {
-            PLAN9 = "${pkgs.plan9port}/plan9";
             PATH = "$PATH:/Users/stephen/bin";
           };
 
@@ -147,8 +145,6 @@
           home.packages = [
             pkgs.macvim
             pkgs.vimr
-            #pkgs.mono
-            #pkgs.roslyn-ls
           ];
 
           targets.darwin = {
@@ -294,56 +290,6 @@
           };
 
           # Scripts
-          home.file."bin/a" = {
-            executable = true;
-            text = ''
-              #!${pkgs.plan9port}/plan9/bin/rc
-
-              font="${pkgs.plan9port}/plan9/font/pelm/ascii.12.font"
-              BROWSER="safari"
-              TERM="dumb"
-              PAGER="nobs"
-
-              ${pkgs.plan9port}/plan9/bin/9 acme -a -f ${pkgs.plan9port}/plan9/font/pelm/ascii.12.font $* &
-            '';
-          };
-
-          home.file."bin/pretty" = {
-            executable = true;
-            text = ''
-              #!${pkgs.plan9port}/plan9/bin/rc
-
-              base=`{dirname $%}
-
-              while (! test -d $base/node_modules) {
-                test $base = / && echo "Not a Node project" && exit 1
-
-                base=`{dirname $base}
-              }
-
-              $base/node_modules/.bin/prettier --write $%
-              echo get | 9p write acme/$winid/ctl
-              echo put | 9p write acme/$winid/ctl
-            '';
-          };
-
-          home.file."bin/eslint" = {
-            executable = true;
-            text = ''
-              #!${pkgs.plan9port}/plan9/bin/rc
-
-              base=`{dirname $%}
-
-              while (! test -d $base/node_modules) {
-                test $base = / && echo "Not a Node project" && exit 1
-
-                base=`{dirname $base}
-              }
-
-              cat $% | $base/node_modules/.bin/eslint --stdin --stdin-filename $%
-            '';
-          };
-
           home.file."bin/update" = {
             executable = true;
             text = ''
