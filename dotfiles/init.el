@@ -6,10 +6,10 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (let ((local-file (expand-file-name "custom.el" user-emacs-directory)))
   (when (file-exists-p local-file)
-    (load local-file nil (quote nomessage))))
+    (load local-file nil 'nomessage)))
 
 (add-to-list 'backup-directory-alist
-	     `(("," . ,(concat user-emacs-directory "/backups"))))
+	     `(("." . ,(concat user-emacs-directory "/backups"))))
 
 ;; This is the name of the built-in package in Emacs 30
 ;; I think
@@ -25,28 +25,17 @@
   :init (add-hook 'lisp-mode-hook 'slime-mode)
   :config (progn ()
 		 (setq browse-url-handlers
-		       '(("lispworks\\.com" . eww-browse-url)))
-		 (if (and (getenv "LISP") (executable-find (getenv "LISP")))
-		     (setq inferior-lisp-program (getenv "LISP"))
-		   (setq inferior-lisp-program "clisp"))))
+		       '(("lispworks\\.com" . eww-browse-url))
+		       inferior-lisp-program "ros -Q run")))
 
-(use-package sly
-  :commands sly
-  :config (progn ()
-		 (setq browse-url-handlers
-		       '(("lispworks\\.com" . eww-browse-url)))
-		 (if (and (getenv "LISP") (executable-find (getenv "LISP")))
-		     (setq inferior-lisp-program (getenv "LISP"))
-		   (setq inferior-lisp-program "clisp"))))
-
-(load-theme (quote deeper-blue) t)
+(load-theme 'modus-vivendi-tinted t)
 (tool-bar-mode -1)
-(add-to-list 'default-frame-alist '(font . "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1"))
-(add-hook (quote after-make-frame-functions)
-          (lambda (frame)
-            (with-selected-frame frame
-              (set-frame-font "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1" t t))))
-(add-hook (quote server-after-make-frame-hook)
-	  (lambda (frame)
-	    (with-selected-frame frame
-	      (sat-frame-font "-*-HP-UX User Font-light-normal-condensed-*-18-*-*-*-p-0-iso10646-1" t t))))
+(setq mac-option-modifier '(:ordinary meta :function meta :mouse nil)
+      mac-command-modifier 'nil)
+(set-face-attribute 'default nil
+		    :font "3270 Nerd Font"
+		    :height 240)
+(set-face-attribute 'variable-pitch nil
+		    :font "Geneva"
+		    :height 180)
+

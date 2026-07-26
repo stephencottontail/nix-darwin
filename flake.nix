@@ -126,6 +126,8 @@
           # Extra environment variables
           environment.variables = {
             PATH = "$PATH:/Users/stephen/bin";
+            ROS_LISP = "sbcl-bin/system";
+            ROSWELL_HOME = "$HOME/.config/roswell";
           };
 
           # Extra fonts
