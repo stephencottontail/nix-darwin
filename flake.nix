@@ -228,7 +228,7 @@
             # It seems that we can set `PLAN9` in `environment.variables`
             # but we then can't also use it to set `PATH` in `e.v` at
             # at the same time
-            export $PATH=$PATH:$PLAN9/bin
+            export PATH=$PATH:$PLAN9/bin
           '';
 
           home.file = {
