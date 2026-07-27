@@ -125,6 +125,7 @@
 
           # Extra environment variables
           environment.variables = {
+            PLAN9 = "$HOME/.local/plan9port";
             PATH = "$PATH:/Users/stephen/bin";
             ROS_LISP = "sbcl-bin/system";
             ROSWELL_HOME = "$HOME/.config/roswell";
@@ -224,7 +225,10 @@
 
           # ZSH
           home.file.".zshrc".text = ''
-            eval "$(direnv hook zsh)"
+            # It seems that we can set `PLAN9` in `environment.variables`
+            # but we then can't also use it to set `PATH` in `e.v` at
+            # at the same time
+            export $PATH=$PATH:$PLAN9/bin
           '';
 
           home.file = {
