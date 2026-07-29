@@ -180,9 +180,10 @@
               enable = true;
               package = pkgs.emacs-macport;
               extraPackages = epkgs: [
-                epkgs.org
+                epkgs.magit
                 epkgs.meow
                 epkgs.meow-tree-sitter
+                epkgs.org
                 epkgs.slime
                 epkgs.paredit
               ];
