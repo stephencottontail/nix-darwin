@@ -11,6 +11,21 @@
 (add-to-list 'backup-directory-alist
              `(("." . ,(concat user-emacs-directory "/backups"))))
 
+(use-package ellama
+  :init (require 'llm-ollama)
+  :custom (ellama-provider (make-llm-ollama
+			    :host "localhost"
+			    :port 11434
+			    :embedding-model "qwen3.5:9b"
+			    :chat-model "qwen3.5:9b"
+                            :default-chat-non-standard-params '((num_ctx . 16384))))
+  :bind ("C-c e" . ellama-transient-main-menu)
+  :config (progn ()
+                 (ellama-setup-agentic-coding)
+                 (ellama-context-header-line-global-mode +1)
+                 (ellama-session-header-line-global-mode +1)
+                 (setq ellama-tools-agent-default-max-steps 2000)))
+
 (use-package magit
   :bind (("C-x g" . magit-status)))
 

@@ -94,6 +94,7 @@
             pkgs.groff
             pkgs.groff.perl
             pkgs.nodejs_24
+            pkgs.ollama
             pkgs.sbcl
             pkgs.sbclPackages.swank
             pkgs.roswell
@@ -113,6 +114,18 @@
           users.users.stephen = {
             name = "stephen";
             home = "/Users/stephen";
+          };
+
+          system.primaryUser = "stephen";
+
+          launchd.user.agents.ollama = {
+            script = "${pkgs.ollama}/bin/ollama serve";
+            serviceConfig = {
+              KeepAlive = true;
+              RunAtLoad = true;
+              StandardOutPath = "/tmp/ollama.out.log";
+              StandardErrorPath = "/tmp/ollama.err.log";
+            };
           };
 
           # ZSH
@@ -180,6 +193,16 @@
               enable = true;
               package = pkgs.emacs-macport;
               extraPackages = epkgs: [
+                (epkgs.ellama.overrideAttrs (old: rec {
+                  version = "1.31.0";
+
+                  src = pkgs.fetchFromGitHub {
+                    owner = "s-kostyaev";
+                    repo = "ellama";
+                    rev = "${version}";
+                    hash = "sha256-cf1uqlwTdO+koMaHFU+o0jo58mQ5Nevm4sJaSW9L4+A=";
+                  };
+                }))
                 epkgs.magit
                 epkgs.meow
                 epkgs.meow-tree-sitter
