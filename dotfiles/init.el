@@ -24,7 +24,8 @@
                  (ellama-setup-agentic-coding)
                  (ellama-context-header-line-global-mode +1)
                  (ellama-session-header-line-global-mode +1)
-                 (setq ellama-tools-agent-default-max-steps 2000)))
+                 (setq ellama-tools-agent-default-max-steps 2000
+                       ellama-tools-allowed '(ellama-tools-grep-in-file-tool ellama-tools-grep-tool ellama-tools-lines-range-tool ellama-tools-now-tool ellama-tools-project-root-tool ellama-tools-read-file-tool))))
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
