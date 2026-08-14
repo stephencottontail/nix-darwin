@@ -110,14 +110,26 @@
                  (meow-setup)
                  (meow-global-mode 1)))
 
+(use-package gptel
+  :config (setq gptel-log-level 'debug
+                gptel-model 'qwen3.5:9b
+                gptel-backend (gptel-make-ollama "Ollama"
+                                :host "localhost:11434"
+                                :stream nil
+                                :models '(qwen3.5:9b :capabilities (tool_use)))))
+
+(use-package gptel-agent
+  :after gptel
+  :config (gptel-agent-update))
+
 (use-package ellama
   :init (require 'llm-ollama)
   :custom (ellama-provider (make-llm-ollama
-			    :host "localhost"
-			    :port 11434
-			    :embedding-model "qwen3.5:9b"
-			    :chat-model "qwen3.5:9b"
-                            :default-chat-non-standard-params '((num_ctx . 16384))))
+                             :host "localhost"
+                             :port 11434
+                             :embedding-model "qwen3.5:9b"
+                             :chat-model "qwen3.5:9b"
+                             :default-chat-non-standard-params '((num_ctx . 16384))))
   :bind ("C-c e" . ellama-transient-main-menu)
   :config (progn ()
                  (ellama-setup-agentic-coding)

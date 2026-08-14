@@ -203,6 +203,24 @@
                     hash = "sha256-cf1uqlwTdO+koMaHFU+o0jo58mQ5Nevm4sJaSW9L4+A=";
                   };
                 }))
+                (epkgs.gptel.overrideAttrs (old: rec {
+		  version = "0.9.9.5";
+
+                  src = pkgs.fetchFromGitHub {
+		    owner = "karthink";
+		    repo = "gptel";
+		    rev = "f5ad4eb812920fba3fcfbe32042ef89f979a7e17";
+		    hash = "sha256-qDPDFK/mODg/nBVCbHEaICIBtjaFdRsOSQXVXK3vx60=";
+		  };
+		}))
+                (epkgs.gptel-agent.overrideAttrs (old: rec {
+                  src = pkgs.fetchFromGitHub {
+                    owner = "karthink";
+                    repo = "gptel-agent";
+                    rev = "e833bcaf617baf8c8075eac098231c4457386814";
+                    hash = "sha256-gX3n3T/jmmvA25s8qMpOyfQzuSKyY3OgkEkitMXfspg=";
+                  };
+                }))
                 epkgs.magit
                 epkgs.meow
                 epkgs.meow-tree-sitter
