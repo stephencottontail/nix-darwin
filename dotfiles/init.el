@@ -161,6 +161,9 @@
   :mode "\\.tsx\\'"
   :config (add-hook 'tsx-ts-mode-hook #'eglot-ensure))
 
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
+
 (use-package slime
   :init (add-hook 'lisp-mode-hook 'slime-mode)
   :config (progn ()
@@ -173,8 +176,8 @@
 (setq mac-option-modifier '(:ordinary meta :function meta :mouse nil)
       mac-command-modifier 'nil)
 (set-face-attribute 'default nil
-                    :font "3270 Nerd Font"
-                    :height 240)
+                    :font "DejaVu Sans"
+                    :height 180)
 (set-face-attribute 'variable-pitch nil
                     :font "Geneva"
                     :height 180)

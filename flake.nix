@@ -88,7 +88,7 @@
           # $ nix-env -qaP | grep wget
           environment.systemPackages = [
             pkgs.nixfmt
-            pkgs.zoom-us
+            pkgs.direnv
             pkgs.sciteco
             pkgs.ibiblio-teco
             pkgs.groff
@@ -147,10 +147,12 @@
           # Extra fonts
           fonts.packages = [
             pkgs.cm_unicode
-            pkgs.vt323
+            pkgs.dejavu_fonts
+            pkgs.liberation_ttf_v2
             pkgs.nerd-fonts.bigblue-terminal
             pkgs.nerd-fonts.hasklug
             pkgs.nerd-fonts._3270
+            pkgs.vt323
           ];
 
           # The platform the configuration will be used on.
@@ -221,6 +223,7 @@
                     hash = "sha256-gX3n3T/jmmvA25s8qMpOyfQzuSKyY3OgkEkitMXfspg=";
                   };
                 }))
+                epkgs.envrc
                 epkgs.magit
                 epkgs.meow
                 epkgs.meow-tree-sitter
@@ -268,9 +271,11 @@
           # ZSH
           home.file.".zshrc".text = ''
             # It seems that we can set `PLAN9` in `environment.variables`
-            # but we then can't also use it to set `PATH` in `e.v` at
+            # but we then can't also use it to set `PATH` in `env` at
             # at the same time
             export PATH=$PATH:$PLAN9/bin
+            
+            eval "$(direnv hook zsh)"
           '';
 
           home.file = {
