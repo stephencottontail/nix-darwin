@@ -112,11 +112,12 @@
 
 (use-package gptel
   :config (setq gptel-log-level 'debug
-                gptel-model 'qwen3.5:9b
-                gptel-backend (gptel-make-ollama "Ollama"
-                                :host "localhost:11434"
-                                :stream nil
-                                :models '(qwen3.5:9b :capabilities (tool_use)))))
+                gptel-backend (gptel-make-openai "OLMo"
+                                :host "localhost:8080"
+                                :protocol "http"
+                                :endpoint "/v1/chat/completions"
+                                :stream t
+                                :models '("mlx-community/OLMo-3-7B-Instruct-4bit"))))
 
 (use-package gptel-agent
   :after gptel
