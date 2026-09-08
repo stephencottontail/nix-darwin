@@ -69,7 +69,7 @@
                 });
               })
               (final: prev: {
-                 sciteco = pkgs.callPackage ./sciteco/package.nix { };
+                sciteco = pkgs.callPackage ./sciteco/package.nix { };
               })
               (final: prev: {
                 ibiblio-teco = pkgs.callPackage ./ibiblio-teco/package.nix { };
@@ -119,8 +119,8 @@
           system.primaryUser = "stephen";
 
           # The Nix package for `mlx-lm` doesn't seem to work; the server starts and
-	  # accepts connections but neither `curl` nor `gptel` actually get any response
-	  # back. Instead, I wrote a script to manually install `mlx-lm` through `pip`.
+          # accepts connections but neither `curl` nor `gptel` actually get any response
+          # back. Instead, I wrote a script to manually install `mlx-lm` through `pip`.
           launchd.user.agents.mlx = {
             script = ''
               MLX_DIRECTORY="$HOME/Documents/Projects/mlx"
@@ -231,15 +231,15 @@
                   };
                 }))
                 (epkgs.gptel.overrideAttrs (old: rec {
-		  version = "0.9.9.5";
+                  version = "0.9.9.5";
 
                   src = pkgs.fetchFromGitHub {
-		    owner = "karthink";
-		    repo = "gptel";
-		    rev = "f5ad4eb812920fba3fcfbe32042ef89f979a7e17";
-		    hash = "sha256-qDPDFK/mODg/nBVCbHEaICIBtjaFdRsOSQXVXK3vx60=";
-		  };
-		}))
+                    owner = "karthink";
+                    repo = "gptel";
+                    rev = "f5ad4eb812920fba3fcfbe32042ef89f979a7e17";
+                    hash = "sha256-qDPDFK/mODg/nBVCbHEaICIBtjaFdRsOSQXVXK3vx60=";
+                  };
+                }))
                 (epkgs.gptel-agent.overrideAttrs (old: rec {
                   src = pkgs.fetchFromGitHub {
                     owner = "karthink";
@@ -265,6 +265,7 @@
                   name = "Stephen Dickinson";
                 };
                 core.editor = "vim";
+                core.pager = "cat";
                 init.defaultBranch = "main";
                 color.ui = false;
               };
@@ -299,7 +300,7 @@
             # but we then can't also use it to set `PATH` in `env` at
             # at the same time
             export PATH=$PATH:$PLAN9/bin
-            
+
             eval "$(direnv hook zsh)"
           '';
 
