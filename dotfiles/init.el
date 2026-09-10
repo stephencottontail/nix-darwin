@@ -177,8 +177,9 @@
 (setq mac-option-modifier '(:ordinary meta :function meta :mouse nil)
       mac-command-modifier 'nil)
 (set-face-attribute 'default nil
-                    :font "DejaVu Sans"
-                    :height 180)
+                    :font "Go"
+                    :height 180
+                    :weight 'bold)
 (set-face-attribute 'variable-pitch nil
-                    :font "Geneva"
+                    :font "Go"
                     :height 180)

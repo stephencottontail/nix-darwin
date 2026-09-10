@@ -173,9 +173,8 @@
           fonts.packages = [
             pkgs.cm_unicode
             pkgs.dejavu_fonts
+            pkgs.go-font
             pkgs.liberation_ttf_v2
-            pkgs.nerd-fonts.bigblue-terminal
-            pkgs.nerd-fonts.hasklug
             pkgs.nerd-fonts._3270
             pkgs.vt323
           ];
