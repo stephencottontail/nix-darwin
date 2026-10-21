@@ -143,7 +143,7 @@
               "$MLX_DIRECTORY/.venv/bin/pip" install mlx-lm
 
               echo "Starting server..."
-              "$MLX_DIRECTORY/.venv/bin/mlx_lm.server" --model mlx-community/Olmo-3-7B-Instruct-4bit
+              "$MLX_DIRECTORY/.venv/bin/mlx_lm.server" --model mlx-community/Olmo-3-7B-Instruct-4bit --prefill-step-size 512 --prompt-cache-bytes 1000000000
             '';
             serviceConfig = {
               KeepAlive = true;
@@ -217,34 +217,30 @@
             };
             emacs = {
               enable = true;
-              package = pkgs.emacs-macport;
+              package = pkgs.emacs;
               extraPackages = epkgs: [
                 (epkgs.ellama.overrideAttrs (old: rec {
-                  version = "1.31.0";
-
                   src = pkgs.fetchFromGitHub {
                     owner = "s-kostyaev";
                     repo = "ellama";
-                    rev = "${version}";
-                    hash = "sha256-cf1uqlwTdO+koMaHFU+o0jo58mQ5Nevm4sJaSW9L4+A=";
+                    rev = "b98cb4a904b70def4f21050d5d202005ee00b3b4";
+                    hash = "sha256-YPh6fXvU0iUqgR35ZyitEE/rTDf5KwKd3s/IlicRiOo=";
                   };
                 }))
                 (epkgs.gptel.overrideAttrs (old: rec {
-                  version = "0.9.9.5";
-
                   src = pkgs.fetchFromGitHub {
                     owner = "karthink";
                     repo = "gptel";
-                    rev = "f5ad4eb812920fba3fcfbe32042ef89f979a7e17";
-                    hash = "sha256-qDPDFK/mODg/nBVCbHEaICIBtjaFdRsOSQXVXK3vx60=";
+                    rev = "ec25a41fb8bebf5ea08341a9d8c70c0ee907ee23";
+                    hash = "sha256-YJhjFsrFgUqk4j8Lfq4g5H9sAdqOcfiWHx4HWyUCQ/c=";
                   };
                 }))
                 (epkgs.gptel-agent.overrideAttrs (old: rec {
                   src = pkgs.fetchFromGitHub {
                     owner = "karthink";
                     repo = "gptel-agent";
-                    rev = "e833bcaf617baf8c8075eac098231c4457386814";
-                    hash = "sha256-gX3n3T/jmmvA25s8qMpOyfQzuSKyY3OgkEkitMXfspg=";
+                    rev = "326e0abb8c6db0e5c4c421bd9af495932ae94b62";
+                    hash = "sha256-2eqY1MebzsDOpf3YEHy6o31TbpLA2iIPZMMVrscLYMk=";
                   };
                 }))
                 epkgs.envrc

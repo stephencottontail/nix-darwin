@@ -121,6 +121,7 @@
 
 (use-package gptel-agent
   :after gptel
+  :defer t
   :config (gptel-agent-update))
 
 (use-package ellama
