@@ -47,7 +47,7 @@
           nixpkgs = {
             overlays = import ./overlays ++ [
               (final: prev: {
-                emacs-macport = prev.emacs-macport.overrideAttrs (old: {
+                emacs = prev.emacs.overrideAttrs (old: {
                   postInstall = (old.postInstall or "") + ''
                     RES_DIR="$out/Applications/Emacs.app/Contents/Resources";
                     PLIST="$out/Applications/Emacs.app/Contents/Info.plist";
@@ -58,12 +58,16 @@
                   '';
                   patches = (old.patches) ++ [
                     (prev.fetchpatch {
-                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-28/fix-window-role.patch";
-                      sha256 = "sha256-+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
+                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/community/patches/aggressive-read-buffering/emacs-31.patch";
+                      sha256 = "sha256-4w8/310XDuLROZfiwxfnqmBWZtinIT3EomcKLh8d58A=";
                     })
                     (prev.fetchpatch {
-                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/system-appearance.patch";
-                      sha256 = "sha256-3QLq91AQ6E921/W9nfDjdOUWR8YVsqBAT/W9c1woqAw=";
+                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-31/fix-ns-x-colors.patch";
+                      sha256 = "sha256-oe3DFgEXwp0cZJl+ufWqTonaeWSliikTRsVDNbcy4Yw=";
+                    })
+                    (prev.fetchpatch {
+                      url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-31/system-appearance.patch";
+                      sha256 = "sha256-4+2U+4+2tpuaThNJfZOjy1JPnneGcsoge9r+WpgNDko=";
                     })
                   ];
                 });
@@ -157,7 +161,7 @@
           programs.zsh = {
             enable = true;
             promptInit = ''
-              export PROMPT="%m> "
+              export PROMPT="%# "
             '';
           };
 
@@ -171,9 +175,11 @@
 
           # Extra fonts
           fonts.packages = [
+            pkgs.atkinson-hyperlegible
+            pkgs.atkinson-monolegible
             pkgs.cm_unicode
             pkgs.dejavu_fonts
-            pkgs.go-font
+            pkgs.intel-one-mono
             pkgs.liberation_ttf_v2
             pkgs.nerd-fonts._3270
             pkgs.vt323
@@ -245,8 +251,6 @@
                 }))
                 epkgs.envrc
                 epkgs.magit
-                epkgs.meow
-                epkgs.meow-tree-sitter
                 epkgs.org
                 epkgs.slime
                 epkgs.paredit
