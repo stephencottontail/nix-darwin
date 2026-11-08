@@ -123,33 +123,8 @@
 
           system.primaryUser = "stephen";
 
-          # The Nix package for `mlx-lm` doesn't seem to work; the server starts and
-          # accepts connections but neither `curl` nor `gptel` actually get any response
-          # back. Instead, I wrote a script to manually install `mlx-lm` through `pip`.
-          launchd.user.agents.mlx = {
-            script = ''
-              MLX_DIRECTORY="$HOME/Documents/Projects/mlx"
-
-              if [ ! -d "$MLX_DIRECTORY" ]; then
-                echo "Creating MLX directory..."
-                mkdir -p $MLX_DIRECTORY
-              fi
-
-              if [ ! -d "$MLX_DIRECTORY/.venv" ]; then
-                echo "Creating virtual environment..."
-                ${pkgs.python3}/bin/python -m venv "$MLX_DIRECTORY/.venv"
-              fi
-
-              echo "Activating virtual environment..."
-              source "$MLX_DIRECTORY/.venv/bin/activate"
-
-              echo "Installing MLX..."
-              "$MLX_DIRECTORY/.venv/bin/pip" install --upgrade pip
-              "$MLX_DIRECTORY/.venv/bin/pip" install mlx-lm
-
-              echo "Starting server..."
-              "$MLX_DIRECTORY/.venv/bin/mlx_lm.server" --model mlx-community/Olmo-3-7B-Instruct-4bit --prefill-step-size 512 --prompt-cache-bytes 1000000000
-            '';
+          launchd.user.agents.ollama = {
+            script = "${pkgs.ollama}/bin/ollama serve";
             serviceConfig = {
               KeepAlive = true;
               RunAtLoad = true;

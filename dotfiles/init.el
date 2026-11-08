@@ -13,12 +13,11 @@
 
 (use-package gptel
   :config (setq gptel-log-level 'debug
-                gptel-backend (gptel-make-openai "OLMo"
-                                :host "localhost:8080"
-                                :protocol "http"
-                                :endpoint "/v1/chat/completions"
-                                :stream t
-                                :models '("mlx-community/OLMo-3-7B-Instruct-4bit"))))
+                gptel-model 'olmo-3:7b-instruct
+                gptel-backend (gptel-make-ollama "Ollama"
+                                :host "localhost:11434"
+                                :stream nil
+                                :models '(olmo-3:7b-instruct :capabilities (tool_use)))))
 
 (use-package gptel-agent
   :after gptel
@@ -30,8 +29,8 @@
   :custom (ellama-provider (make-llm-ollama
                              :host "localhost"
                              :port 11434
-                             :embedding-model "qwen3.5:9b"
-                             :chat-model "qwen3.5:9b"
+                             :embedding-model "olmo-3:7b-instruct"
+                             :chat-model "olmo-3:7b-instruct"
                              :default-chat-non-standard-params '((num_ctx . 16384))))
   :bind ("C-c e" . ellama-transient-main-menu)
   :config (progn ()
