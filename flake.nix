@@ -122,7 +122,6 @@
 
           system.primaryUser = "stephen";
 
-          launchd.user.agents.mlx = {
           launchd.user.agents.ollama = {
             script = "${pkgs.ollama}/bin/ollama serve";
             serviceConfig = {
@@ -324,7 +323,6 @@
               sudo darwin-rebuild switch --flake /Users/stephen/Documents/Projects/nix-darwin/
             '';
           };
-
         };
     in
     {
