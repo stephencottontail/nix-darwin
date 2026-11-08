@@ -98,11 +98,10 @@
             pkgs.groff
             pkgs.groff.perl
             pkgs.nodejs_24
+            pkgs.ollama
             pkgs.sbcl
             pkgs.sbclPackages.swank
             pkgs.roswell
-            pkgs.python3
-            pkgs.racket
           ];
 
           # Set hostname
@@ -128,8 +127,8 @@
             serviceConfig = {
               KeepAlive = true;
               RunAtLoad = true;
-              StandardOutPath = "/tmp/mlx.out.log";
-              StandardErrorPath = "/tmp/mlx.err.log";
+              StandardOutPath = "/tmp/ollama.out.log";
+              StandardErrorPath = "/tmp/ollama.err.log";
             };
           };
 
