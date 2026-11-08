@@ -102,6 +102,7 @@
             pkgs.sbclPackages.swank
             pkgs.roswell
             pkgs.python3
+            pkgs.racket
           ];
 
           # Set hostname
@@ -191,6 +192,14 @@
       homeConfiguration =
         { lib, pkgs, ... }:
         let
+          vscode-paredit = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+            mktplcRef = {
+              name = "paredit-redex";
+              publisher = "KaiErikNiermann";
+              version = "0.1.0";
+              sha256 = "sha256-SRYowxLz4Ae5Fm66CTEaJBywzWsvXQFIHt7C7elxrN8=";
+            };
+          };
           grammars = [
             pkgs.tree-sitter-grammars.tree-sitter-typescript
             pkgs.tree-sitter-grammars.tree-sitter-tsx
@@ -252,6 +261,7 @@
                 epkgs.envrc
                 epkgs.magit
                 epkgs.org
+                epkgs.racket-mode
                 epkgs.slime
                 epkgs.paredit
               ];
@@ -269,6 +279,60 @@
                 color.ui = false;
               };
             };
+            vscode = {
+              enable = true;
+              package = pkgs.vscode;
+              profiles.default = {
+                extensions = with pkgs.vscode-extensions; [
+                  betterthantomorrow.calva
+                  continue.continue
+                  eugleo.magic-racket
+                  mkhl.direnv
+                  vscode-paredit
+                ];
+                userSettings = {
+                  "editor.accessibilitySupport" = "on";
+                  "editor.guides.indentation" = false;
+                  "editor.suggest.preview" = false;
+                  "terminal.integrated.accessibleViewFocusOnCommandExecution" = true;
+                  # Optimizes how screen readers handle inline code suggestions
+                  "editor.inlineSuggest.showToolbar" = "always";
+                  # Controls how chat or terminal screen reader changes are announced
+                  "accessibility.verbosity.terminal" = true;
+                  "workbench.colorTheme" = "Default High Contrast";
+                };
+              };
+            };
+            zsh = {
+              enable = true;
+              initContent = ''
+                # It seems that we can set `PLAN9` in `environment.variables`
+                # but we then can't also use it to set `PATH` in `env` at
+                # at the same time
+                export PATH=$PATH:$PLAN9/bin
+
+                eval "$(direnv hook zsh)"
+              '';
+              shellAliases = {
+                ed = "ed -p'> '";
+              };
+            };
+          };
+
+          home.file.".continue/config.yaml" = {
+            text = ''
+              name: Main Config
+              version: 1.0.0
+              schema: v1
+              models:
+                - name: OLMo
+                  provider: openai
+                  model: mlx-community/Olmo-3-7B-Instruct-4bit
+                  apiBase: "http://localhost:8080/v1"
+                  roles:
+                    - chat
+                    - edit
+            '';
           };
 
           # Emacs
@@ -292,16 +356,6 @@
           home.file.".config/emacs/init.el" = {
             source = dotfiles/init.el;
           };
-
-          # ZSH
-          home.file.".zshrc".text = ''
-            # It seems that we can set `PLAN9` in `environment.variables`
-            # but we then can't also use it to set `PATH` in `env` at
-            # at the same time
-            export PATH=$PATH:$PLAN9/bin
-
-            eval "$(direnv hook zsh)"
-          '';
 
           home.file = {
             ".vim/vimrc" = {
@@ -333,7 +387,6 @@
                 };
               };
             };
-
             ".vim/colors" = {
               source = dotfiles/colors;
             };
@@ -348,7 +401,6 @@
               sudo darwin-rebuild switch --flake /Users/stephen/Documents/Projects/nix-darwin/
             '';
           };
-
         };
     in
     {
