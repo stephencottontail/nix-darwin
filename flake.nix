@@ -267,13 +267,34 @@
                 userSettings = {
                   "editor.accessibilitySupport" = "on";
                   "editor.guides.indentation" = false;
-                  "editor.suggest.preview" = false;
-                  "terminal.integrated.accessibleViewFocusOnCommandExecution" = true;
                   # Optimizes how screen readers handle inline code suggestions
                   "editor.inlineSuggest.showToolbar" = "always";
+                  "editor.minimap.enabled" = false;
+                  "editor.suggest.preview" = false;
+                  "editor.quickSuggestions" = {
+                    "other" = "off";
+                    "comments" = "off";
+                    "strings" = "off";
+                  };
+                  "terminal.integrated.accessibleViewFocusOnCommandExecution" = true;
                   # Controls how chat or terminal screen reader changes are announced
                   "accessibility.verbosity.terminal" = true;
                   "workbench.colorTheme" = "Default High Contrast";
+                  "calva.outputViews.replInput" = {
+                    "output-sidebar" = true;
+                  };
+                  "calva.outputDestinations" = {
+                    "calva.redirectServerOutputToRepl" = false;
+                    "evalResults" = [
+                      "output-sidebar"
+                    ];
+                    "evalOutput" = [
+                      "output-sidebar"
+                    ];
+                    "otherOutput" = [
+                      "output-sidebar"
+                    ];
+                  };
                 };
               };
             };
