@@ -95,6 +95,8 @@
             pkgs.direnv
             pkgs.sciteco
             pkgs.ibiblio-teco
+            pkgs.clojure
+            pkgs.racket
             pkgs.groff
             pkgs.groff.perl
             pkgs.nodejs_24
