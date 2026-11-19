@@ -262,9 +262,6 @@
                 extensions = with pkgs.vscode-extensions; [
                   betterthantomorrow.calva
                   continue.continue
-                  eugleo.magic-racket
-                  mkhl.direnv
-                  vscode-paredit
                 ];
                 userSettings = {
                   "editor.accessibilitySupport" = "on";
@@ -282,9 +279,6 @@
                   # Controls how chat or terminal screen reader changes are announced
                   "accessibility.verbosity.terminal" = true;
                   "workbench.colorTheme" = "Default High Contrast";
-                  "calva.outputViews.replInput" = {
-                    "output-sidebar" = true;
-                  };
                   "calva.outputDestinations" = {
                     "calva.redirectServerOutputToRepl" = false;
                     "evalResults" = [
